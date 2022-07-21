@@ -34,6 +34,7 @@ targets:
         CODE_SIGN_STYLE: Automatic
     dependencies:
         - package: SnapKit
+        - package: SharedResources
         
     preBuildScripts:
     - name: "Swiftlint"
