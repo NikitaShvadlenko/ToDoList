@@ -26,15 +26,19 @@ targets:
     platform: iOS
     type: application
     sources:
+          - path: "ToDoList"
+            excludes:
+            - "Packages/**/"
+    dependencies:
+        - package: SnapKit
+        - package: SharedResources
     settings:
       base:
         TARGETED_DEVICE_FAMILY: 1
         DISPLAY_NAME: "ToDoList"
         PRODUCT_BUNDLE_IDENTIFIER: shvad.toDoListBasic
         CODE_SIGN_STYLE: Automatic
-    dependencies:
-        - package: SnapKit
-        - package: SharedResources
+
         
     preBuildScripts:
     - name: "Swiftlint"

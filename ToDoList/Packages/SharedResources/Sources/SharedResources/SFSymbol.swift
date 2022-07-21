@@ -9,5 +9,5 @@ import Foundation
 
 // MARK: - SFSymbol
 public enum SFSymbol: String, SFSymbolRepresentable {
-
+    case sliderHorizontal = "slider.horizontal.3"
 }
