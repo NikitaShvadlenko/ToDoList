@@ -18,6 +18,9 @@ packages:
     url: https://github.com/SnapKit/SnapKit
     from: 5.0.1
 
+  SharedResources:
+    path: ToDoList/Packages/SharedResources
+
 targets:
   ToDoList:
     platform: iOS
