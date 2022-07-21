@@ -6,27 +6,33 @@
 //
 
 import UIKit
+import SharedResources
 
-@main
+@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
 
     // swiftlint:disable:next discouraged_optional_collection
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        let window = UIWindow(frame: UIScreen.main.bounds)
+
+        let tabBarController = UITabBarController()
+        window.rootViewController = tabBarController
+
+        var viewControllers = [UIViewController]()
+
+        let rootViewController = ViewController()
+        rootViewController.tabBarItem.title = "Tab Bar Item"
+        rootViewController.tabBarItem.image = UIImage(sfSymbol: SharedResources.SFSymbol.sliderHorizontal)
+
+        let navigationController = UINavigationController(rootViewController: rootViewController)
+        viewControllers.append(navigationController)
+
+        tabBarController.setViewControllers(viewControllers, animated: false)
+
+        self.window = window
+        window.makeKeyAndVisible()
         return true
-    }
-
-    // MARK: UISceneSession Lifecycle
-
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-    }
-
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 }
