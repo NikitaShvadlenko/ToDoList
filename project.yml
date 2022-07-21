@@ -20,6 +20,7 @@ packages:
 
   SharedResources:
     path: ToDoList/Packages/SharedResources
+    group: UI
 
 targets:
   ToDoList:
