@@ -1,0 +1,32 @@
+name: "ToDoList"
+
+settings:
+  base:
+    DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+    ENABLE_BITCODE: NO
+    CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED: YES
+    CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT: YES
+    CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER: YES
+
+options:
+  deploymentTarget:
+    iOS: 15.0
+
+packages: 
+  SnapKit:
+    url: https://github.com/SnapKit/SnapKit
+    from: 5.0.1
+
+targets:
+  ToDoList:
+    platform: iOS
+    type: application
+    sources:
+    settings:
+      base:
+        TARGETED_DEVICE_FAMILY: 1
+        DISPLAY_NAME: "ToDoList"
+        PRODUCT_BUNDLE_IDENTIFIER: shvad.toDoListBasic
+        CODE_SIGN_STYLE: Automatic
+    dependencies:
+        - package: SnapKit
