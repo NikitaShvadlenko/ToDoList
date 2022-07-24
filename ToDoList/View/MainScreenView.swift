@@ -16,6 +16,7 @@ class MainScreenView: UIView {
         tableView.estimatedRowHeight = 100
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
+        tableView.register(EmployeeCell.self, forCellReuseIdentifier: "\(EmployeeCell.self)")
         return tableView
     }()
 

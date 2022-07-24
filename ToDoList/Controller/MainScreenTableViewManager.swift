@@ -19,6 +19,11 @@ extension MainScreenTableViewManager: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(EmployeeCell.self)", for: indexPath) as? EmployeeCell
+        else {
+            fatalError("Could not deque cell")
+        }
+        cell.setupEmployeeTypeLabel(with: "Manager")
+        return cell
     }
 }
