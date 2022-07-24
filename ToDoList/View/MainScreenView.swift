@@ -14,6 +14,8 @@ class MainScreenView: UIView {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.estimatedRowHeight = 100
+        tableView.allowsSelection = false
+        tableView.separatorStyle = .none
         return tableView
     }()
 

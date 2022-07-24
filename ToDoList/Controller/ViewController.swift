@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import SnapKit
+import SharedResources
 
 class ViewController: UIViewController {
 
@@ -15,6 +17,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        setupNavigationController()
         mainScreenView.dataSource = mainScreenManager
     }
 }
@@ -22,8 +25,26 @@ class ViewController: UIViewController {
 // MARK: - Private Methods
 extension ViewController {
     private func setupView() {
+        title = SharedResources.L10n.employeeScreenName
         view.addSubview(mainScreenView)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        mainScreenView.frame = self.view.frame
+        mainScreenView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    private func setupNavigationController() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(sfSymbol: SFSymbol.addEmployee),
+            style: .plain,
+            target: self,
+            action: #selector(didTapAddItem)
+        )
+
+        navigationItem.rightBarButtonItem?.tintColor = Asset.Colors.employeeColor.color
+
+    }
+
+    @objc
+    func didTapAddItem() {
+        print("did tap")
     }
 }
