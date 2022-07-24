@@ -1,21 +1,13 @@
-//
-//  MainScreenTableViewManager.swift
-//  ToDoListBasic
-//
-//  Created by Nikita Shvad on 12.07.2022.
-//
-
-import Foundation
 import UIKit
 
 class MainScreenTableViewManager: NSObject {
-
+    let employeeManager = EmployeeManager()
 }
 
 extension MainScreenTableViewManager: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        employeeManager.employees.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -23,7 +15,7 @@ extension MainScreenTableViewManager: UITableViewDataSource {
         else {
             fatalError("Could not deque cell")
         }
-        cell.setupEmployeeTypeLabel(with: "Manager")
+        cell.setupEmployeeTypeLabel(name: employeeManager.employees[indexPath.row].name, description: employeeManager.employees[indexPath.row].description)
         return cell
     }
 }

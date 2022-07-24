@@ -4,8 +4,15 @@ import SnapKit
 
 class EmployeeCell: UITableViewCell {
 
-    private lazy var employeeTypeLabel: UILabel = {
+    private lazy var employeeNameLabel: UILabel = {
         let label = UILabel()
+        label.textAlignment = .left
+        return label
+    }()
+
+    private lazy var employeeDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
         return label
     }()
 
@@ -21,17 +28,26 @@ class EmployeeCell: UITableViewCell {
 
 // MARK: - Public Methods
 extension EmployeeCell {
-    public func setupEmployeeTypeLabel(with text: String) {
-        employeeTypeLabel.text = text
+    public func setupEmployeeTypeLabel(name: String, description: String) {
+        employeeNameLabel.text = name
+        employeeDescriptionLabel.text = description
     }
 }
 
 // MARK: - Private Methods
 extension EmployeeCell {
     private func setupView() {
-        contentView.addSubview(employeeTypeLabel)
-        employeeTypeLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        contentView.addSubview(employeeNameLabel)
+        contentView.addSubview(employeeDescriptionLabel)
+
+        employeeNameLabel.snp.makeConstraints { make in
+            make.left.bottom.top.equalToSuperview().inset(4)
+            make.width.equalToSuperview().multipliedBy(0.5)
+        }
+
+        employeeDescriptionLabel.snp.makeConstraints { make in
+            make.left.equalTo(employeeNameLabel.snp.right)
+            make.top.bottom.right.equalToSuperview()
         }
     }
 }
