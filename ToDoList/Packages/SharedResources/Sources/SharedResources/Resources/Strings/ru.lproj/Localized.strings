@@ -11,6 +11,8 @@
 "accountant" = "Accountant";
 "worker" = "Worker";
 "manager" = "Manager";
-
+"managerSectionName" = "Management";
+"workerSectionName" = "Attendants";
+"accountantSectionName" = "Accountants";
 
 

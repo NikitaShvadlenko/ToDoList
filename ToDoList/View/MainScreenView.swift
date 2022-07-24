@@ -9,6 +9,8 @@ class MainScreenView: UIView {
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
         tableView.register(EmployeeCell.self, forCellReuseIdentifier: "\(EmployeeCell.self)")
+        tableView.register(ManagerCell.self, forCellReuseIdentifier: "\(ManagerCell.self)")
+        tableView.register(AccountantCell.self, forCellReuseIdentifier: "\(AccountantCell.self)")
         return tableView
     }()
 

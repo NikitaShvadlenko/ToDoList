@@ -4,14 +4,21 @@ public enum AccountantType {
     case payroll
     case inventory
 }
+public enum EmployeeType {
+    case management
+    case accountant
+    case basicWorker
+}
 
 class Employee {
     let name: String
     let salary: Double
+    let employeeType: EmployeeType
 
-    init(name: String, salary: Double) {
+    init(name: String, salary: Double, employeeType: EmployeeType) {
         self.name = name
         self.salary = salary
+        self.employeeType = employeeType
     }
 }
 
@@ -20,7 +27,7 @@ class Management: Employee {
 
     init(name: String, salary: Double, meetingHours: TimePeriod) {
         self.meetingHours = meetingHours
-        super.init(name: name, salary: salary)
+        super.init(name: name, salary: salary, employeeType: .management)
     }
 }
 
@@ -31,7 +38,7 @@ class BasicWorker: Employee {
     init(name: String, salary: Double, breakHours: TimePeriod, deskNumber: Int) {
         self.breakHours = breakHours
         self.deskNumber = deskNumber
-        super.init(name: name, salary: salary)
+        super.init(name: name, salary: salary, employeeType: .basicWorker)
     }
 }
 
@@ -51,6 +58,6 @@ class Accountant: Employee {
         self.breakHours = breakHours
         self.deskNumber = deskNumber
         self.accountantType = accountantType
-        super.init(name: name, salary: salary)
+        super.init(name: name, salary: salary, employeeType: .accountant)
     }
 }
