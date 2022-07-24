@@ -1,9 +1,9 @@
 import Foundation
 
 class EmployeeManager: NSObject {
-    let employees: [EmployeeModel]
+    let employees: [Employee]
 
     override init() {
-        employees = [EmployeeModel(name: "Vasia", description: "works hard")]
+        employees = [Employee(name: "Vasia", salary: 40.00)]
     }
 }

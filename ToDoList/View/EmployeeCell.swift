@@ -10,7 +10,7 @@ class EmployeeCell: UITableViewCell {
         return label
     }()
 
-    private lazy var employeeDescriptionLabel: UILabel = {
+    private lazy var employeeSalaryLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         return label
@@ -28,9 +28,9 @@ class EmployeeCell: UITableViewCell {
 
 // MARK: - Public Methods
 extension EmployeeCell {
-    public func setupEmployeeTypeLabel(name: String, description: String) {
+    public func setupEmployeeTypeLabel(name: String, salary: Double) {
         employeeNameLabel.text = name
-        employeeDescriptionLabel.text = description
+        employeeSalaryLabel.text = String(salary)
     }
 }
 
@@ -38,14 +38,14 @@ extension EmployeeCell {
 extension EmployeeCell {
     private func setupView() {
         contentView.addSubview(employeeNameLabel)
-        contentView.addSubview(employeeDescriptionLabel)
+        contentView.addSubview(employeeSalaryLabel)
 
         employeeNameLabel.snp.makeConstraints { make in
             make.left.bottom.top.equalToSuperview().inset(4)
             make.width.equalToSuperview().multipliedBy(0.5)
         }
 
-        employeeDescriptionLabel.snp.makeConstraints { make in
+        employeeSalaryLabel.snp.makeConstraints { make in
             make.left.equalTo(employeeNameLabel.snp.right)
             make.top.bottom.right.equalToSuperview()
         }

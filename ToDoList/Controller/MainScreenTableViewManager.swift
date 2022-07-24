@@ -5,6 +5,9 @@ class MainScreenTableViewManager: NSObject {
 }
 
 extension MainScreenTableViewManager: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        employeeManager.employees.count
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         employeeManager.employees.count
@@ -15,7 +18,7 @@ extension MainScreenTableViewManager: UITableViewDataSource {
         else {
             fatalError("Could not deque cell")
         }
-        cell.setupEmployeeTypeLabel(name: employeeManager.employees[indexPath.row].name, description: employeeManager.employees[indexPath.row].description)
+        cell.setupEmployeeTypeLabel(name: employeeManager.employees[indexPath.row].name, salary: employeeManager.employees[indexPath.row].salary)
         return cell
     }
 }
