@@ -11,6 +11,7 @@ class MainScreenView: UIView {
         tableView.register(EmployeeCell.self, forCellReuseIdentifier: "\(EmployeeCell.self)")
         tableView.register(ManagerCell.self, forCellReuseIdentifier: "\(ManagerCell.self)")
         tableView.register(AccountantCell.self, forCellReuseIdentifier: "\(AccountantCell.self)")
+        tableView.sectionHeaderHeight = 35
         return tableView
     }()
 
@@ -32,6 +33,15 @@ extension MainScreenView {
         }
         set {
             tableView.dataSource = newValue
+        }
+    }
+
+    var delegate: UITableViewDelegate? {
+        get {
+            tableView.delegate
+        }
+        set {
+            tableView.delegate = newValue
         }
     }
 }

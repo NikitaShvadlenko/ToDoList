@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         setupView()
         setupNavigationController()
         mainScreenView.dataSource = mainScreenManager
+        mainScreenView.delegate = mainScreenManager
     }
 }
 

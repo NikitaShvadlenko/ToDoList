@@ -10,20 +10,6 @@ extension MainScreenTableViewManager: UITableViewDataSource {
         employeeManager.employees.count
     }
 
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch employeeManager.employees[section][0].employeeType {
-
-        case .management:
-            return SharedResources.L10n.managerSectionName
-
-        case .accountant:
-            return SharedResources.L10n.accountantSectionName
-
-        case .basicWorker:
-            return SharedResources.L10n.workerSectionName
-        }
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         employeeManager.employees[section].count
     }
@@ -55,5 +41,36 @@ extension MainScreenTableViewManager: UITableViewDataSource {
             cell.setupEmployeeTypeLabel(name: employeeManager.basicWorkers[indexPath.row].name, salary: employeeManager.basicWorkers[indexPath.row].salary)
             return cell
         }
+    }
+}
+
+extension MainScreenTableViewManager: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+        var sectionTitle: String = "23452345"
+        var image: UIImage?
+
+        switch employeeManager.employees[section][0].employeeType {
+
+        case .management:
+            sectionTitle = SharedResources.L10n.managerSectionName
+            image = UIImage(sfSymbol: SharedResources.SFSymbol.sliderHorizontal)
+
+        case .accountant:
+            sectionTitle = SharedResources.L10n.accountantSectionName
+            image = UIImage(sfSymbol: SharedResources.SFSymbol.addEmployee)
+
+        case .basicWorker:
+            sectionTitle = SharedResources.L10n.workerSectionName
+            image = UIImage(sfSymbol: SharedResources.SFSymbol.addEmployee)
+        }
+
+        let headerView = HeaderView()
+        guard let image = image else {
+            fatalError("image does not exist")
+        }
+
+        headerView.configureHeader(title: sectionTitle, icon: image)
+        return headerView
     }
 }
