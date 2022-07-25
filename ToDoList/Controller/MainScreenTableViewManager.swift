@@ -54,15 +54,15 @@ extension MainScreenTableViewManager: UITableViewDelegate {
 
         case .management:
             sectionTitle = SharedResources.L10n.managerSectionName
-            image = UIImage(sfSymbol: SharedResources.SFSymbol.sliderHorizontal)
+            image = UIImage(sfSymbol: SharedResources.SFSymbol.managerIcon)
 
         case .accountant:
             sectionTitle = SharedResources.L10n.accountantSectionName
-            image = UIImage(sfSymbol: SharedResources.SFSymbol.addEmployee)
+            image = UIImage(sfSymbol: SharedResources.SFSymbol.accountantIcon)
 
         case .basicWorker:
             sectionTitle = SharedResources.L10n.workerSectionName
-            image = UIImage(sfSymbol: SharedResources.SFSymbol.addEmployee)
+            image = UIImage(sfSymbol: SharedResources.SFSymbol.basicWorkerIcon)
         }
 
         let headerView = HeaderView()
