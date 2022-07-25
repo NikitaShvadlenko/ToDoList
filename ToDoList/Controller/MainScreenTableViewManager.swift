@@ -45,7 +45,13 @@ extension MainScreenTableViewManager: UITableViewDataSource {
             else {
                 fatalError("Could not deque cell")
             }
-            cell.setupEmployeeTypeLabel(name: employeeManager.basicWorkers[indexPath.row].name, salary: employeeManager.basicWorkers[indexPath.row].salary)
+            let employee = employeeManager.basicWorkers[indexPath.row]
+            cell.setupEmployeeTypeLabel(
+                name: employee.name,
+                salary: employee.salary,
+                deskNumber: employee.deskNumber,
+                employeeBreakHours: employee.breakHours
+            )
             return cell
         }
     }

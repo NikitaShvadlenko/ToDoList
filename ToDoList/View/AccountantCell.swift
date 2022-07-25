@@ -78,31 +78,31 @@ extension AccountantCell {
 
         employeeNameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
-            make.leading.trailing.equalToSuperview().inset(4)
+            make.leading.trailing.equalToSuperview().inset(8)
             make.height.equalTo(20)
         }
 
         accountantTypeLabel.snp.makeConstraints { make in
             make.top.equalTo(employeeNameLabel.snp.bottom).offset(4)
-            make.leading.trailing.equalToSuperview().inset(4)
+            make.leading.trailing.equalToSuperview().inset(8)
             make.height.equalTo(20)
         }
 
         deskNumberLabel.snp.makeConstraints { make in
             make.top.equalTo(employeeNameLabel.snp.top)
-            make.trailing.equalToSuperview().inset(4)
+            make.trailing.equalToSuperview().inset(8)
             make.height.equalTo(20)
         }
 
         accountantBreakHoursLabel.snp.makeConstraints { make in
             make.top.equalTo(accountantTypeLabel.snp.bottom).offset(4)
-            make.leading.trailing.equalToSuperview().inset(4)
+            make.leading.trailing.equalToSuperview().inset(8)
             make.height.equalTo(20)
         }
 
         employeeSalaryLabel.snp.makeConstraints { make in
             make.top.equalTo(accountantBreakHoursLabel.snp.bottom).offset(4)
-            make.leading.trailing.equalToSuperview().inset(4)
+            make.leading.trailing.equalToSuperview().inset(8)
             make.height.equalTo(20)
             make.bottom.equalToSuperview()
         }
