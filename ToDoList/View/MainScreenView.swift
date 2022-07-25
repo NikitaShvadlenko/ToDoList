@@ -1,4 +1,5 @@
 import UIKit
+import SharedResources
 import SnapKit
 
 class MainScreenView: UIView {
@@ -12,6 +13,8 @@ class MainScreenView: UIView {
         tableView.register(ManagerCell.self, forCellReuseIdentifier: "\(ManagerCell.self)")
         tableView.register(AccountantCell.self, forCellReuseIdentifier: "\(AccountantCell.self)")
         tableView.sectionHeaderHeight = 35
+        tableView.backgroundView = UIView()
+        tableView.backgroundView?.backgroundColor = SharedResources.Asset.Colors.mainScreenBackgroundColor.color
         return tableView
     }()
 
@@ -49,6 +52,7 @@ extension MainScreenView {
 // MARK: - Private Methods
 extension MainScreenView {
     private func setupView() {
+        self.backgroundColor = .blue
         self.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()

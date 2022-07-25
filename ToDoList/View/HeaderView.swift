@@ -1,4 +1,5 @@
 import SnapKit
+import SharedResources
 import UIKit
 
 class HeaderView: UIView {
@@ -36,7 +37,7 @@ extension HeaderView {
     private func setupView() {
         self.addSubview(employeeTypeLabel)
         self.addSubview(employeeTypeImageView)
-
+        self.backgroundColor = SharedResources.Asset.Colors.tableViewCellBackgroundColor.color
         employeeTypeImageView.snp.makeConstraints { make in
             make.left.top.bottom.equalToSuperview().inset(4)
             make.width.equalTo(employeeTypeLabel.snp.height)

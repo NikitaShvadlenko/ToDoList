@@ -22,7 +22,8 @@ extension MainScreenTableViewManager: UITableViewDataSource {
             else {
                 fatalError("Could not deque cell")
             }
-            cell.setupEmployeeTypeLabel(name: employeeManager.managers[indexPath.row].name, salary: employeeManager.managers[indexPath.row].salary)
+            let manager = employeeManager.managers[indexPath.row]
+            cell.configureCell(name: manager.name, salary: manager.salary, meetingHours: manager.meetingHours)
             return cell
 
         case .accountant:

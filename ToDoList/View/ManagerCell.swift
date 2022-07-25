@@ -7,10 +7,19 @@ class ManagerCell: UITableViewCell {
     private lazy var employeeNameLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
+        label.adjustsFontSizeToFitWidth = true
+        label.font = .boldSystemFont(ofSize: 25)
+        label.minimumScaleFactor = 0.4
         return label
     }()
 
     private lazy var employeeSalaryLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        return label
+    }()
+
+    private lazy var managerMeetingHoursLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         return label
@@ -28,27 +37,39 @@ class ManagerCell: UITableViewCell {
 
 // MARK: - Public Methods
 extension ManagerCell {
-    public func setupEmployeeTypeLabel(name: String, salary: Double) {
+    public func configureCell(name: String, salary: Double, meetingHours: TimePeriod) {
         employeeNameLabel.text = name
         employeeSalaryLabel.text = String(salary)
+        managerMeetingHoursLabel.text = String(meetingHours.startTime.timeIntervalSinceNow)
     }
 }
 
 // MARK: - Private Methods
 extension ManagerCell {
     private func setupView() {
-        contentView.backgroundColor = .red
-        contentView.addSubview(employeeNameLabel)
-        contentView.addSubview(employeeSalaryLabel)
+
+        [
+            employeeNameLabel,
+            employeeSalaryLabel,
+            managerMeetingHoursLabel
+        ].forEach(contentView.addSubview(_:))
+        self.backgroundColor = SharedResources.Asset.Colors.tableViewCellBackgroundColor.color
 
         employeeNameLabel.snp.makeConstraints { make in
-            make.left.bottom.top.equalToSuperview().inset(4)
-            make.width.equalToSuperview().multipliedBy(0.5)
+            make.top.equalToSuperview().inset(10)
+            make.leading.equalToSuperview().inset(8)
+            make.height.equalTo(20)
         }
-
+        managerMeetingHoursLabel.snp.makeConstraints { make in
+            make.top.equalTo(employeeNameLabel.snp.bottom).offset(4)
+            make.leading.trailing.equalToSuperview().inset(8)
+            make.height.equalTo(20)
+        }
         employeeSalaryLabel.snp.makeConstraints { make in
-            make.left.equalTo(employeeNameLabel.snp.right)
-            make.top.bottom.right.equalToSuperview()
+            make.top.equalTo(managerMeetingHoursLabel.snp.bottom).offset(4)
+            make.leading.trailing.equalToSuperview().inset(8)
+            make.bottom.equalToSuperview()
+            make.height.equalTo(20)
         }
     }
 }

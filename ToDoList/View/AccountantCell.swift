@@ -9,7 +9,7 @@ class AccountantCell: UITableViewCell {
         label.textAlignment = .left
         label.adjustsFontSizeToFitWidth = true
         label.font = .boldSystemFont(ofSize: 25)
-        label.minimumScaleFactor = 0.7
+        label.minimumScaleFactor = 0.4
         return label
     }()
 
@@ -76,9 +76,11 @@ extension AccountantCell {
             employeeSalaryLabel
         ].forEach(contentView.addSubview(_:))
 
+        self.backgroundColor = SharedResources.Asset.Colors.tableViewCellBackgroundColor.color
+
         employeeNameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
-            make.leading.trailing.equalToSuperview().inset(8)
+            make.leading.equalToSuperview().inset(8)
             make.height.equalTo(20)
         }
 
@@ -90,7 +92,8 @@ extension AccountantCell {
 
         deskNumberLabel.snp.makeConstraints { make in
             make.top.equalTo(employeeNameLabel.snp.top)
-            make.trailing.equalToSuperview().inset(8)
+            make.leading.equalTo(employeeNameLabel.snp.trailing).offset(4)
+            make.trailing.equalToSuperview().inset(4)
             make.height.equalTo(20)
         }
 

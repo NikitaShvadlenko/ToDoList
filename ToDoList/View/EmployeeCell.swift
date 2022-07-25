@@ -60,16 +60,18 @@ extension EmployeeCell {
             employeeBreakHoursLabel,
             employeeSalaryLabel
         ].forEach(contentView.addSubview(_:))
+        self.backgroundColor = SharedResources.Asset.Colors.tableViewCellBackgroundColor.color
 
         employeeNameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
-            make.leading.trailing.equalToSuperview().inset(8)
+            make.leading.equalToSuperview().inset(8)
             make.height.equalTo(20)
         }
 
         deskNumberLabel.snp.makeConstraints { make in
             make.top.equalTo(employeeNameLabel.snp.top)
             make.trailing.equalToSuperview().inset(8)
+            make.leading.equalTo(employeeNameLabel.snp.trailing)
             make.height.equalTo(20)
         }
 
