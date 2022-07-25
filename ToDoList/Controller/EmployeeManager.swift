@@ -1,52 +1,29 @@
 import Foundation
 
+protocol EmployeeManagerProtocol {
+    func fetchEmployeeData(from provider: EmployeeProvider)
+    func addEmployee(employee: Employee)
+    func removeEmployee(employee: Employee)
+}
+
 class EmployeeManager: NSObject {
-    var employees: [[Employee]]
-    var accountants: [Accountant]
-    let managers: [Management]
-    var basicWorkers: [BasicWorker]
+    var employees: [[Employee]] = []
 
     override init() {
-        accountants = [
-            Accountant(
-                name: "Valera",
-                salary: 500.00,
-                breakHours: TimePeriod(startTime: Date(timeIntervalSince1970: 20), finishTime: Date(timeIntervalSince1970: 30)),
-                deskNumber: 5,
-                accountantType: .payroll
-            ),
+        let employeeDataProvider = EmployeeProvider()
+        employees = employeeDataProvider.fetchEmployeeData()
+    }
+}
 
-            Accountant(
-                name: "Zhmishenko Valeriy Albertovich",
-                salary: 1500.00,
-                breakHours: TimePeriod(startTime: Date(timeIntervalSince1970: 20), finishTime: Date(timeIntervalSince1970: 30)),
-                deskNumber: 15,
-                accountantType: .payroll
-            )
-        ]
+// MARK: EmployeeManagerProtocol
+extension EmployeeManager: EmployeeManagerProtocol {
+    func addEmployee(employee: Employee) {
+    }
 
-        managers = [
-            Management(
-                name: "Manager444",
-                salary: 400.00,
-                meetingHours: TimePeriod(
-                    startTime: Date(timeIntervalSince1970: 40),
-                    finishTime: Date(timeIntervalSince1970: 50)
-                )
-            )
-        ]
+    func removeEmployee(employee: Employee) {
+    }
 
-        basicWorkers = [
-            BasicWorker(
-                name: "Nikoglay",
-                salary: 20.00,
-                breakHours: TimePeriod(
-                    startTime: Date(timeIntervalSince1970: 23),
-                    finishTime: Date(timeIntervalSince1970: 54)
-                ),
-                deskNumber: 5
-            )
-        ]
-        employees = [managers, accountants, basicWorkers]
+    func fetchEmployeeData(from provider: EmployeeProvider) {
+        self.employees = provider.fetchEmployeeData()
     }
 }

@@ -22,7 +22,10 @@ extension MainScreenTableViewManager: UITableViewDataSource {
             else {
                 fatalError("Could not deque cell")
             }
-            let manager = employeeManager.managers[indexPath.row]
+            guard let manager = employeeManager.employees[indexPath.section][indexPath.row] as? Management
+            else {
+                fatalError("Fatal")
+            }
             cell.configureCell(name: manager.name, salary: manager.salary, meetingHours: manager.meetingHours)
             return cell
 
@@ -31,7 +34,10 @@ extension MainScreenTableViewManager: UITableViewDataSource {
             else {
                 fatalError("Could not deque cell")
             }
-            let accountant = employeeManager.accountants[indexPath.row]
+           guard let accountant = employeeManager.employees[indexPath.section][indexPath.row]  as? Accountant
+            else {
+               fatalError("Could not downcast to accountant")
+           }
             cell.configureCell(
                 name: accountant.name,
                 salary: accountant.salary,
@@ -46,7 +52,12 @@ extension MainScreenTableViewManager: UITableViewDataSource {
             else {
                 fatalError("Could not deque cell")
             }
-            let employee = employeeManager.basicWorkers[indexPath.row]
+
+            guard let employee = employeeManager.employees[indexPath.section][indexPath.row] as? BasicWorker
+            else {
+                fatalError("Could not downcast to basic worker")
+            }
+
             cell.setupEmployeeTypeLabel(
                 name: employee.name,
                 salary: employee.salary,
