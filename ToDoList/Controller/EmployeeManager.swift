@@ -14,6 +14,14 @@ class EmployeeManager: NSObject {
                 breakHours: TimePeriod(startTime: Date(timeIntervalSince1970: 20), finishTime: Date(timeIntervalSince1970: 30)),
                 deskNumber: 5,
                 accountantType: .payroll
+            ),
+
+            Accountant(
+                name: "Zhmishenko Valeriy Albertovich",
+                salary: 1500.00,
+                breakHours: TimePeriod(startTime: Date(timeIntervalSince1970: 20), finishTime: Date(timeIntervalSince1970: 30)),
+                deskNumber: 15,
+                accountantType: .payroll
             )
         ]
 

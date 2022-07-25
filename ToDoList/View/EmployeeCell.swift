@@ -6,6 +6,7 @@ class EmployeeCell: UITableViewCell {
 
     private lazy var employeeNameLabel: UILabel = {
         let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 14)
         label.textAlignment = .left
         return label
     }()

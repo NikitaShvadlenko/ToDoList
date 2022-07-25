@@ -14,5 +14,7 @@
 "managerSectionName" = "Management";
 "workerSectionName" = "Attendants";
 "accountantSectionName" = "Accountants";
-
+"deskNumber" = "Desk #%@";
+"inventoryAccountant" = "Inventory Management";
+"payrollAccountant" = "Payroll Administration";
 

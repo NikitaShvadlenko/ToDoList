@@ -30,7 +30,14 @@ extension MainScreenTableViewManager: UITableViewDataSource {
             else {
                 fatalError("Could not deque cell")
             }
-            cell.setupEmployeeTypeLabel(name: employeeManager.accountants[indexPath.row].name, salary: employeeManager.accountants[indexPath.row].salary)
+            let accountant = employeeManager.accountants[indexPath.row]
+            cell.configureCell(
+                name: accountant.name,
+                salary: accountant.salary,
+                accountantType: accountant.accountantType,
+                deskNumber: accountant.deskNumber,
+                breakHours: accountant.breakHours
+            )
             return cell
 
         case .basicWorker:
@@ -47,7 +54,7 @@ extension MainScreenTableViewManager: UITableViewDataSource {
 extension MainScreenTableViewManager: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
-        var sectionTitle: String = "23452345"
+        var sectionTitle: String = ""
         var image: UIImage?
 
         switch employeeManager.employees[section][0].employeeType {
