@@ -26,7 +26,7 @@ extension MainScreenTableViewManager: UITableViewDataSource {
             else {
                 fatalError("Fatal")
             }
-            cell.configureCell(name: manager.name, salary: manager.salary, meetingHours: manager.meetingHours)
+            cell.configureCell(name: manager.name, salary: manager.salary, meetingHours: manager.meetingHours.formatTimePeriodAsString())
             return cell
 
         case .accountant:
@@ -43,7 +43,7 @@ extension MainScreenTableViewManager: UITableViewDataSource {
                 salary: accountant.salary,
                 accountantType: accountant.accountantType,
                 deskNumber: accountant.deskNumber,
-                breakHours: accountant.breakHours
+                breakHours: accountant.breakHours.formatTimePeriodAsString()
             )
             return cell
 
@@ -62,7 +62,7 @@ extension MainScreenTableViewManager: UITableViewDataSource {
                 name: employee.name,
                 salary: employee.salary,
                 deskNumber: employee.deskNumber,
-                employeeBreakHours: employee.breakHours
+                breakHours: employee.breakHours.formatTimePeriodAsString()
             )
             return cell
         }

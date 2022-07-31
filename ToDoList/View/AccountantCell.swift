@@ -4,7 +4,7 @@ import SharedResources
 
 class AccountantCell: UITableViewCell {
 
-    private lazy var employeeNameLabel: UILabel = {
+    private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         label.adjustsFontSizeToFitWidth = true
@@ -13,7 +13,7 @@ class AccountantCell: UITableViewCell {
         return label
     }()
 
-    private lazy var employeeSalaryLabel: UILabel = {
+    private lazy var salaryLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         return label
@@ -26,7 +26,7 @@ class AccountantCell: UITableViewCell {
         return label
     }()
 
-    private lazy var accountantBreakHoursLabel: UILabel = {
+    private lazy var breakHoursLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         return label
@@ -55,13 +55,13 @@ extension AccountantCell {
         salary: Double,
         accountantType: String,
         deskNumber: Int,
-        breakHours: TimePeriod
+        breakHours: String
     ) {
-        employeeNameLabel.text = name
-        employeeSalaryLabel.text = String(salary)
+        nameLabel.text = name
+        salaryLabel.text = String(salary)
         accountantTypeLabel.text = accountantType
         deskNumberLabel.text = SharedResources.L10n.deskNumber(deskNumber)
-        accountantBreakHoursLabel.text = String(breakHours.startTime.timeIntervalSinceNow)
+        breakHoursLabel.text = breakHours
     }
 }
 
@@ -69,42 +69,42 @@ extension AccountantCell {
 extension AccountantCell {
     private func setupView() {
         [
-            employeeNameLabel,
+            nameLabel,
             accountantTypeLabel,
             deskNumberLabel,
-            accountantBreakHoursLabel,
-            employeeSalaryLabel
+            breakHoursLabel,
+            salaryLabel
         ].forEach(contentView.addSubview(_:))
 
         self.backgroundColor = SharedResources.Asset.Colors.tableViewCellBackgroundColor.color
 
-        employeeNameLabel.snp.makeConstraints { make in
+        nameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
             make.leading.equalToSuperview().inset(8)
             make.height.equalTo(20)
         }
 
         accountantTypeLabel.snp.makeConstraints { make in
-            make.top.equalTo(employeeNameLabel.snp.bottom).offset(4)
+            make.top.equalTo(nameLabel.snp.bottom).offset(4)
             make.leading.trailing.equalToSuperview().inset(8)
             make.height.equalTo(20)
         }
 
         deskNumberLabel.snp.makeConstraints { make in
-            make.top.equalTo(employeeNameLabel.snp.top)
-            make.leading.equalTo(employeeNameLabel.snp.trailing).offset(4)
+            make.top.equalTo(nameLabel.snp.top)
+            make.leading.equalTo(nameLabel.snp.trailing).offset(4)
             make.trailing.equalToSuperview().inset(4)
             make.height.equalTo(20)
         }
 
-        accountantBreakHoursLabel.snp.makeConstraints { make in
+        breakHoursLabel.snp.makeConstraints { make in
             make.top.equalTo(accountantTypeLabel.snp.bottom).offset(4)
             make.leading.trailing.equalToSuperview().inset(8)
             make.height.equalTo(20)
         }
 
-        employeeSalaryLabel.snp.makeConstraints { make in
-            make.top.equalTo(accountantBreakHoursLabel.snp.bottom).offset(4)
+        salaryLabel.snp.makeConstraints { make in
+            make.top.equalTo(breakHoursLabel.snp.bottom).offset(4)
             make.leading.trailing.equalToSuperview().inset(8)
             make.height.equalTo(20)
             make.bottom.equalToSuperview()

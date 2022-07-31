@@ -37,10 +37,10 @@ class ManagerCell: UITableViewCell {
 
 // MARK: - Public Methods
 extension ManagerCell {
-    public func configureCell(name: String, salary: Double, meetingHours: TimePeriod) {
+    public func configureCell(name: String, salary: Double, meetingHours: String) {
         employeeNameLabel.text = name
         employeeSalaryLabel.text = String(salary)
-        managerMeetingHoursLabel.text = String(meetingHours.startTime.timeIntervalSinceNow)
+        managerMeetingHoursLabel.text = meetingHours
     }
 }
 

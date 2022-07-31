@@ -4,7 +4,7 @@ import SnapKit
 
 class EmployeeCell: UITableViewCell {
 
-    private lazy var employeeNameLabel: UILabel = {
+    private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.adjustsFontSizeToFitWidth = true
         label.font = .boldSystemFont(ofSize: 25)
@@ -13,7 +13,7 @@ class EmployeeCell: UITableViewCell {
         return label
     }()
 
-    private lazy var employeeSalaryLabel: UILabel = {
+    private lazy var salaryLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         return label
@@ -25,7 +25,7 @@ class EmployeeCell: UITableViewCell {
         return label
     }()
 
-    private lazy var employeeBreakHoursLabel: UILabel = {
+    private lazy var breakHoursLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         return label
@@ -43,11 +43,11 @@ class EmployeeCell: UITableViewCell {
 
 // MARK: - Public Methods
 extension EmployeeCell {
-    public func setupEmployeeTypeLabel(name: String, salary: Double, deskNumber: Int, employeeBreakHours: TimePeriod) {
-        employeeNameLabel.text = name
-        employeeSalaryLabel.text = String(salary)
+    public func setupEmployeeTypeLabel(name: String, salary: Double, deskNumber: Int, breakHours: String) {
+        nameLabel.text = name
+        salaryLabel.text = String(salary)
         deskNumberLabel.text = SharedResources.L10n.deskNumber(deskNumber)
-        employeeBreakHoursLabel.text = String(employeeBreakHours.startTime.timeIntervalSinceNow)
+        breakHoursLabel.text = breakHours
     }
 }
 
@@ -55,34 +55,34 @@ extension EmployeeCell {
 extension EmployeeCell {
     private func setupView() {
         [
-            employeeNameLabel,
+            nameLabel,
             deskNumberLabel,
-            employeeBreakHoursLabel,
-            employeeSalaryLabel
+            breakHoursLabel,
+            salaryLabel
         ].forEach(contentView.addSubview(_:))
         self.backgroundColor = SharedResources.Asset.Colors.tableViewCellBackgroundColor.color
 
-        employeeNameLabel.snp.makeConstraints { make in
+        nameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
             make.leading.equalToSuperview().inset(8)
             make.height.equalTo(20)
         }
 
         deskNumberLabel.snp.makeConstraints { make in
-            make.top.equalTo(employeeNameLabel.snp.top)
+            make.top.equalTo(nameLabel.snp.top)
             make.trailing.equalToSuperview().inset(8)
-            make.leading.equalTo(employeeNameLabel.snp.trailing)
+            make.leading.equalTo(nameLabel.snp.trailing)
             make.height.equalTo(20)
         }
 
-        employeeBreakHoursLabel.snp.makeConstraints { make in
-            make.top.equalTo(employeeNameLabel.snp.bottom).offset(4)
+        breakHoursLabel.snp.makeConstraints { make in
+            make.top.equalTo(nameLabel.snp.bottom).offset(4)
             make.leading.trailing.equalToSuperview().inset(8)
             make.height.equalTo(20)
         }
 
-        employeeSalaryLabel.snp.makeConstraints { make in
-            make.top.equalTo(employeeBreakHoursLabel.snp.bottom).offset(4)
+        salaryLabel.snp.makeConstraints { make in
+            make.top.equalTo(breakHoursLabel.snp.bottom).offset(4)
             make.leading.trailing.equalToSuperview().inset(8)
             make.height.equalTo(20)
             make.bottom.equalToSuperview()
