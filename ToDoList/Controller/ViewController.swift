@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  ToDoListBasic
-//
-//  Created by Nikita Shvad on 12.07.2022.
-//
-
 import UIKit
 import SnapKit
 import SharedResources

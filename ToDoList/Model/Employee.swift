@@ -1,5 +1,4 @@
 import Foundation
-import SharedResources
 
 public enum EmployeeType {
     case management

@@ -53,13 +53,13 @@ extension AccountantCell {
     public func configureCell(
         name: String,
         salary: Double,
-        accountantType: String,
+        accountantType: AccountantType,
         deskNumber: Int,
         breakHours: String
     ) {
         nameLabel.text = name
         configureSalaryLabelText(for: salary)
-        accountantTypeLabel.text = accountantType
+        configureAccountantTypeLabel(for: accountantType)
         deskNumberLabel.text = SharedResources.L10n.deskNumber(deskNumber)
         breakHoursLabel.text = breakHours
     }
@@ -121,5 +121,15 @@ extension AccountantCell {
         guard let formattedValue = formatter.string(from: number) else { return }
 
         salaryLabel.text = SharedResources.L10n.roubles(formattedValue)
+    }
+
+    private func configureAccountantTypeLabel(for accountantType: AccountantType) {
+        switch accountantType {
+        case .payroll:
+            accountantTypeLabel.text = L10n.payrollAccountant
+
+        case .inventory:
+            accountantTypeLabel.text = L10n.inventoryAccountant
+        }
     }
 }

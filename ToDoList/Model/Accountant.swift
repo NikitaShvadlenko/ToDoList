@@ -1,5 +1,4 @@
 import Foundation
-import SharedResources
 
 public enum AccountantType {
     case payroll
@@ -9,7 +8,7 @@ public enum AccountantType {
 class Accountant: Employee {
     let breakHours: TimePeriod
     let deskNumber: Int
-    let accountantType: String
+    let accountantType: AccountantType
 
     init(
         name: String,
@@ -20,13 +19,7 @@ class Accountant: Employee {
     ) {
         self.breakHours = breakHours
         self.deskNumber = deskNumber
-        switch accountantType {
-        case .payroll:
-            self.accountantType = SharedResources.L10n.payrollAccountant
-
-        case .inventory:
-            self.accountantType = SharedResources.L10n.inventoryAccountant
-        }
+        self.accountantType = accountantType
         super.init(name: name, salary: salary, employeeType: .accountant)
     }
 }
