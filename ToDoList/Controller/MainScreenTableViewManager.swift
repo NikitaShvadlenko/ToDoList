@@ -15,16 +15,16 @@ extension MainScreenTableViewManager: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         switch employeeManager.employees[indexPath.section][indexPath.row].employeeType {
         case .management:
-
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(ManagerCell.self)", for: indexPath) as? ManagerCell
             else {
                 fatalError("Could not deque cell")
             }
-            guard let manager = employeeManager.employees[indexPath.section][indexPath.row] as? Management
+            guard let manager = employeeManager.employees[indexPath.section][indexPath.row] as? Manager
             else {
-                fatalError("Fatal")
+                fatalError("Could not downcast to manager")
             }
             cell.configureCell(name: manager.name, salary: manager.salary, meetingHours: manager.meetingHours.formatTimePeriodAsString())
             return cell

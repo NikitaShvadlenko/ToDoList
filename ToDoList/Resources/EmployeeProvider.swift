@@ -4,16 +4,16 @@ class EmployeeProvider {
     func fetchEmployeeData() -> [[Employee]] {
         let accountants = [
             Accountant(
-                name: "Valera",
-                salary: 500.00,
-                breakHours: TimePeriod(startTime: Date(timeIntervalSince1970: 20), finishTime: Date(timeIntervalSince1970: 30)),
+                name: "Леонид Аркадьевич Якубович",
+                salary: 155000.00,
+                breakHours: TimePeriod(startTime: Date(timeIntervalSince1970: 20), finishTime: Date()),
                 deskNumber: 5,
                 accountantType: .payroll
             ),
 
             Accountant(
-                name: "Zhmishenko Valeriy Albertovich",
-                salary: 1500.00,
+                name: "Жмышенко Валерий Альбертович",
+                salary: 150000.00,
                 breakHours: TimePeriod(startTime: Date(timeIntervalSince1970: 20), finishTime: Date(timeIntervalSince1970: 30)),
                 deskNumber: 15,
                 accountantType: .payroll
@@ -21,9 +21,9 @@ class EmployeeProvider {
         ]
 
         let managers = [
-            Management(
-                name: "Manager444",
-                salary: 400.00,
+            Manager(
+                name: "Розинкова Татьяна Петровна",
+                salary: 400000.00,
                 meetingHours: TimePeriod(
                     startTime: Date(timeIntervalSince1970: 40),
                     finishTime: Date(timeIntervalSince1970: 50)
@@ -33,8 +33,8 @@ class EmployeeProvider {
 
         let basicWorkers = [
             BasicWorker(
-                name: "Nikoglay",
-                salary: 20.00,
+                name: "Николай Николаевич Николаев",
+                salary: 20000.00,
                 breakHours: TimePeriod(
                     startTime: Date(timeIntervalSince1970: 23),
                     finishTime: Date(timeIntervalSince1970: 54)

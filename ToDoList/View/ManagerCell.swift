@@ -13,7 +13,7 @@ class ManagerCell: UITableViewCell {
         return label
     }()
 
-    private lazy var employeeSalaryLabel: UILabel = {
+    private lazy var salaryLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         return label
@@ -39,7 +39,7 @@ class ManagerCell: UITableViewCell {
 extension ManagerCell {
     public func configureCell(name: String, salary: Double, meetingHours: String) {
         employeeNameLabel.text = name
-        employeeSalaryLabel.text = String(salary)
+        configureSalaryLabelText(for: salary)
         managerMeetingHoursLabel.text = meetingHours
     }
 }
@@ -50,7 +50,7 @@ extension ManagerCell {
 
         [
             employeeNameLabel,
-            employeeSalaryLabel,
+            salaryLabel,
             managerMeetingHoursLabel
         ].forEach(contentView.addSubview(_:))
         self.backgroundColor = SharedResources.Asset.Colors.tableViewCellBackgroundColor.color
@@ -65,11 +65,23 @@ extension ManagerCell {
             make.leading.trailing.equalToSuperview().inset(8)
             make.height.equalTo(20)
         }
-        employeeSalaryLabel.snp.makeConstraints { make in
+        salaryLabel.snp.makeConstraints { make in
             make.top.equalTo(managerMeetingHoursLabel.snp.bottom).offset(4)
             make.leading.trailing.equalToSuperview().inset(8)
             make.bottom.equalToSuperview()
             make.height.equalTo(20)
         }
+    }
+
+    private func configureSalaryLabelText(for price: Double) {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 0
+
+        let number = NSNumber(value: price)
+        guard let formattedValue = formatter.string(from: number) else { return }
+
+        salaryLabel.text = SharedResources.L10n.roubles(formattedValue)
     }
 }

@@ -58,7 +58,7 @@ extension AccountantCell {
         breakHours: String
     ) {
         nameLabel.text = name
-        salaryLabel.text = String(salary)
+        configureSalaryLabelText(for: salary)
         accountantTypeLabel.text = accountantType
         deskNumberLabel.text = SharedResources.L10n.deskNumber(deskNumber)
         breakHoursLabel.text = breakHours
@@ -109,5 +109,17 @@ extension AccountantCell {
             make.height.equalTo(20)
             make.bottom.equalToSuperview()
         }
+    }
+
+    private func configureSalaryLabelText(for price: Double) {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 0
+
+        let number = NSNumber(value: price)
+        guard let formattedValue = formatter.string(from: number) else { return }
+
+        salaryLabel.text = SharedResources.L10n.roubles(formattedValue)
     }
 }

@@ -17,4 +17,5 @@
 "deskNumber" = "Desk #%@";
 "inventoryAccountant" = "Inventory Management";
 "payrollAccountant" = "Payroll Administration";
+"roubles" = "%@ ₽";
 

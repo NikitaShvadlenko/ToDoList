@@ -18,7 +18,6 @@ class Accountant: Employee {
         deskNumber: Int,
         accountantType: AccountantType
     ) {
-
         self.breakHours = breakHours
         self.deskNumber = deskNumber
         switch accountantType {

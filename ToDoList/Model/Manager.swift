@@ -1,6 +1,6 @@
 import Foundation
 
-class Management: Employee {
+class Manager: Employee {
     let meetingHours: TimePeriod
 
     init(name: String, salary: Double, meetingHours: TimePeriod) {
