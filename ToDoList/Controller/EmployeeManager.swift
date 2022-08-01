@@ -1,9 +1,9 @@
 import Foundation
 
 protocol EmployeeManagerProtocol {
-    func fetchEmployeeData(from provider: EmployeeProvider)
-    func addEmployee(employee: Employee)
-    func removeEmployee(employee: Employee)
+    func fetchEmployeeData(from provider: EmployeeProvider, completion: @escaping (Result<Void, Error>) -> Void)
+    func addEmployee(employee: Employee, completion: @escaping (Result<Void, Error>) -> Void)
+    func removeEmployee(employee: Employee, completion: @escaping (Result<Void, Error>) -> Void)
     func updateEmployeeList(with employee: Employee)
 }
 
@@ -18,17 +18,17 @@ class EmployeeManager: NSObject {
 
     override init() {
         super.init()
-        fetchEmployeeData(from: employeeDataProvider)
     }
 }
 
 // MARK: EmployeeManagerProtocol
 extension EmployeeManager: EmployeeManagerProtocol {
-    func addEmployee(employee: Employee) {
+    func addEmployee(employee: Employee, completion: @escaping (Result<Void, Error>) -> Void) {
         updateEmployeeList(with: employee)
+        completion(.success(Void()))
     }
 
-    func removeEmployee(employee: Employee) {
+    func removeEmployee(employee: Employee, completion: @escaping (Result<Void, Error>) -> Void) {
         switch employee.employeeType {
 
         case .management:
@@ -41,9 +41,11 @@ extension EmployeeManager: EmployeeManagerProtocol {
             self.basicWorkers = self.basicWorkers.filter { $0 != employee }
         }
         employees = [managers, basicWorkers, accountants]
+
+        completion(.success(Void()))
     }
 
-    func fetchEmployeeData(from provider: EmployeeProvider) {
+    func fetchEmployeeData(from provider: EmployeeProvider, completion: @escaping (Result<Void, Error>) -> Void) {
         self.employees = provider.fetchEmployeeData()
 
         for employeeType in employees {
@@ -51,6 +53,7 @@ extension EmployeeManager: EmployeeManagerProtocol {
                 updateEmployeeList(with: employee)
             }
         }
+        completion(.success(Void()))
     }
 
     func updateEmployeeList(with employee: Employee) {
