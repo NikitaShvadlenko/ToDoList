@@ -40,6 +40,7 @@ extension EmployeeManager: EmployeeManagerProtocol {
         case .basicWorker:
             self.basicWorkers = self.basicWorkers.filter { $0 != employee }
         }
+
         employees = [managers, basicWorkers, accountants]
 
         completion(.success(Void()))
