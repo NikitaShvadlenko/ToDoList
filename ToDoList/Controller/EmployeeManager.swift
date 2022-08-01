@@ -19,9 +19,6 @@ class EmployeeManager: NSObject {
     override init() {
         super.init()
         fetchEmployeeData(from: employeeDataProvider)
-        addEmployee(employee: Accountant(name: "cwdc", salary: 100500, breakHours: TimePeriod(startTime: Date(), finishTime: Date()), deskNumber: 12, accountantType: .inventory))
-        addEmployee(employee: BasicWorker(name: "de", salary: 300, breakHours: TimePeriod(startTime: Date(), finishTime: Date()), deskNumber: 11))
-        addEmployee(employee: Manager(name: "dwd", salary: 3000, meetingHours: TimePeriod(startTime: Date(), finishTime: Date())))
     }
 }
 
@@ -32,6 +29,18 @@ extension EmployeeManager: EmployeeManagerProtocol {
     }
 
     func removeEmployee(employee: Employee) {
+        switch employee.employeeType {
+
+        case .management:
+            self.managers = self.managers.filter { $0 != employee }
+
+        case .accountant:
+            self.accountants = self.accountants.filter { $0 != employee }
+
+        case .basicWorker:
+            self.basicWorkers = self.basicWorkers.filter { $0 != employee }
+        }
+        employees = [managers, basicWorkers, accountants]
     }
 
     func fetchEmployeeData(from provider: EmployeeProvider) {

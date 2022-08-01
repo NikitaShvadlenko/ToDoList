@@ -8,7 +8,7 @@ class EmployeeProvider {
                 salary: 155000.00,
                 breakHours: TimePeriod(startTime: Date(timeIntervalSince1970: 20), finishTime: Date()),
                 deskNumber: 5,
-                accountantType: .payroll
+                accountantType: .inventory
             ),
 
             Accountant(
