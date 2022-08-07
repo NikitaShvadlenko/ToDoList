@@ -3,11 +3,12 @@ import SnapKit
 import SharedResources
 
 final class ListViewController: UIViewController {
-
-    var presenter: ListScreenControllerOutput?
     private let mainScreenView = MainScreenView()
-    private let mainScreenManager = MainScreenTableViewManager()
+    var presenter: ListScreenControllerOutput?
 
+    override func loadView() {
+        view = mainScreenView
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -16,11 +17,11 @@ final class ListViewController: UIViewController {
     }
 
     func setListDataSource(dataSource: UITableViewDataSource) {
-        mainScreenView.dataSource = mainScreenManager
+        mainScreenView.dataSource = dataSource
     }
 
     func setListDelegate(delegate: UITableViewDelegate) {
-        mainScreenView.dataSource = mainScreenManager
+        mainScreenView.delegate = delegate
     }
 }
 
