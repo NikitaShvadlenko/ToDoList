@@ -11,9 +11,8 @@ final class ListViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
         presenter?.viewDidLoad(self)
-        setupNavigationController()
+        setupView()
     }
 
     func setListDataSource(dataSource: UITableViewDataSource) {
@@ -28,11 +27,8 @@ final class ListViewController: UIViewController {
 // MARK: - Private Methods
 extension ListViewController {
     private func setupView() {
-        title = SharedResources.L10n.employeeScreenName
-        view.addSubview(mainScreenView)
-        mainScreenView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+       title = SharedResources.L10n.employeeScreenName
+        setupNavigationController()
     }
 
     private func setupNavigationController() {

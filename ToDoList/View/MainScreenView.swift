@@ -56,7 +56,6 @@ extension MainScreenView {
 // MARK: - Private Methods
 extension MainScreenView {
     private func setupView() {
-        self.backgroundColor = .blue
         self.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
