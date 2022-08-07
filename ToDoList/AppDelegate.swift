@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         var viewControllers = [UIViewController]()
 
-        let rootViewController = ViewController()
+        let rootViewController = ListViewController()
         rootViewController.tabBarItem.title = "Tab Bar Item"
         rootViewController.tabBarItem.image = UIImage(sfSymbol: SharedResources.SFSymbol.sliderHorizontal)
 

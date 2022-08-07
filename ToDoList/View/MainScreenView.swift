@@ -47,6 +47,10 @@ extension MainScreenView {
             tableView.delegate = newValue
         }
     }
+
+    func reloadTableView() {
+        tableView.reloadData()
+    }
 }
 
 // MARK: - Private Methods
