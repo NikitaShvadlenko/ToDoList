@@ -1,4 +1,6 @@
 import Foundation
+import UIKit
+
 public enum ListScreenBuilder {
     public static func buildListScreen() -> UIViewController {
         let viewController = ListViewController()
