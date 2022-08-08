@@ -1,14 +1,13 @@
 import Foundation
 
 protocol EmployeeManagerProtocol {
-    func fetchEmployeeData(from provider: EmployeeProvider, completion: @escaping (Result<Void, Error>) -> Void)
     func addEmployee(employee: Employee, completion: @escaping (Result<Void, Error>) -> Void)
     func removeEmployee(employee: Employee, completion: @escaping (Result<Void, Error>) -> Void)
     func updateEmployeeList(with employee: Employee)
 }
 
 class EmployeeManager: NSObject {
-    let employeeDataProvider = EmployeeProvider()
+    let employeeDataProvider = ListProvider()
 
     var employees: [[Employee]] = []
 
@@ -18,9 +17,6 @@ class EmployeeManager: NSObject {
 
     override init() {
         super.init()
-        fetchEmployeeData(from: employeeDataProvider) { _ in
-
-        }
     }
 }
 
@@ -46,17 +42,6 @@ extension EmployeeManager: EmployeeManagerProtocol {
 
         employees = [managers, basicWorkers, accountants]
 
-        completion(.success(Void()))
-    }
-
-    func fetchEmployeeData(from provider: EmployeeProvider, completion: @escaping (Result<Void, Error>) -> Void) {
-        self.employees = provider.fetchEmployeeData()
-
-        for employeeType in employees {
-            for employee in employeeType {
-                updateEmployeeList(with: employee)
-            }
-        }
         completion(.success(Void()))
     }
 

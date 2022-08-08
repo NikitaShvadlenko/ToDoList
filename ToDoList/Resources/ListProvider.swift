@@ -1,7 +1,16 @@
 import Foundation
 
+protocol ListProviderProtocol {
+    func fetchEmployeeData(completion: @escaping(Result<[[Employee]], Error>) -> Void)
+}
+
 class ListProvider {
-    func fetchEmployeeData() -> [[Employee]] {
+
+}
+
+// MARK: - ListProviderProtocol
+extension ListProvider: ListProviderProtocol {
+    func fetchEmployeeData(completion: @escaping (Result<[[Employee]], Error>) -> Void) {
         let accountants = [
             Accountant(
                 name: "Леонид Аркадьевич Якубович",
@@ -43,7 +52,6 @@ class ListProvider {
             )
         ]
 
-        return [managers, basicWorkers, accountants]
-
+        completion(.success( [managers, basicWorkers, accountants] ))
     }
 }

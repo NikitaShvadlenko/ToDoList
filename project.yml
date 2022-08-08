@@ -22,6 +22,10 @@ packages:
     path: ToDoList/Packages/SharedResources
     group: UI
 
+  UseCase:
+    path: ToDoList/Packages/UseCase
+    group: Core
+
 targets:
   ToDoList:
     platform: iOS
@@ -33,6 +37,7 @@ targets:
     dependencies:
         - package: SnapKit
         - package: SharedResources
+        - package: UseCase
     settings:
       base:
         TARGETED_DEVICE_FAMILY: 1
