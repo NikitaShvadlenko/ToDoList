@@ -80,6 +80,7 @@ extension MainScreenTableViewManager: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension MainScreenTableViewManager: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
@@ -108,5 +109,30 @@ extension MainScreenTableViewManager: UITableViewDelegate {
 
         headerView.configureHeader(title: sectionTitle, icon: image)
         return headerView
+    }
+
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let mover = employees[sourceIndexPath.section].remove(at: sourceIndexPath.row)
+        employees[destinationIndexPath.section].insert(mover, at: destinationIndexPath.row)
+    }
+
+    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        switch sourceIndexPath.section != proposedDestinationIndexPath.section {
+
+        case true:
+            return sourceIndexPath
+
+        case false:
+            return proposedDestinationIndexPath
+        }
+    }
+}
+
+// MARK: UITableViewDragDelegate
+extension MainScreenTableViewManager: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let dragItem = UIDragItem(itemProvider: NSItemProvider())
+        dragItem.localObject = employees[indexPath.row]
+        return [ dragItem ]
     }
 }

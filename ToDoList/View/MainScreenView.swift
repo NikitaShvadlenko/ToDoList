@@ -14,6 +14,7 @@ class MainScreenView: UIView {
         tableView.register(AccountantCell.self, forCellReuseIdentifier: "\(AccountantCell.self)")
         tableView.sectionHeaderHeight = 35
         tableView.backgroundView = UIView()
+        tableView.dragInteractionEnabled = true
         tableView.backgroundView?.backgroundColor = SharedResources.Asset.Colors.mainScreenBackgroundColor.color
         return tableView
     }()
@@ -45,6 +46,15 @@ extension MainScreenView {
         }
         set {
             tableView.delegate = newValue
+        }
+    }
+
+    var dragDelegate: UITableViewDragDelegate? {
+        get {
+            tableView.dragDelegate
+        }
+        set {
+            tableView.dragDelegate = newValue
         }
     }
 

@@ -22,6 +22,10 @@ final class ListViewController: UIViewController {
     func setListDelegate(delegate: UITableViewDelegate) {
         mainScreenView.delegate = delegate
     }
+
+    func setListDragDelegate(dragDelegate: UITableViewDragDelegate) {
+        mainScreenView.dragDelegate = dragDelegate
+    }
 }
 
 // MARK: - Private Methods
