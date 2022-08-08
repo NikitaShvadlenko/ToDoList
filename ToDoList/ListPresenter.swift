@@ -1,7 +1,7 @@
 import Foundation
 
 class ListPresenter {
-    var viewController: ListScreenControllerInput?
+   weak var viewController: ListScreenControllerInput?
 }
 
 extension ListPresenter: ListScreenControllerOutput {
