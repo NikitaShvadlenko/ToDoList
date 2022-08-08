@@ -1,6 +1,6 @@
 import Foundation
 
-class EmployeeProvider {
+class ListProvider {
     func fetchEmployeeData() -> [[Employee]] {
         let accountants = [
             Accountant(
