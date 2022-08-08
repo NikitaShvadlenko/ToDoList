@@ -2,6 +2,8 @@ import Foundation
 
 class ListPresenter {
    weak var viewController: ListScreenControllerInput?
+
+    var tableViewManager: MainScreenTableViewManager?
 }
 
 extension ListPresenter: ListScreenControllerOutput {
@@ -11,5 +13,6 @@ extension ListPresenter: ListScreenControllerOutput {
 
     func viewDidTapAddEmployeeButton(_ view: ListScreenControllerInput) {
         print("Tapped Employee Button")
+        viewController?.reloadList()
     }
 }

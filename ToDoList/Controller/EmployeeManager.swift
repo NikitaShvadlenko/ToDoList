@@ -18,6 +18,9 @@ class EmployeeManager: NSObject {
 
     override init() {
         super.init()
+        fetchEmployeeData(from: employeeDataProvider) { ew in
+
+        }
     }
 }
 

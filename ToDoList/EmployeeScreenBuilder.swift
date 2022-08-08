@@ -10,6 +10,8 @@ public enum ListScreenBuilder {
         viewController.setListDataSource(dataSource: listTableViewManager)
         viewController.setListDelegate(delegate: listTableViewManager)
 
+        presenter.tableViewManager = listTableViewManager
+
         viewController.presenter = presenter
         presenter.viewController = viewController
 
