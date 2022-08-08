@@ -1,28 +1,39 @@
 import UIKit
 import SharedResources
 
+protocol ListTableViewManagerProtocol {
+    func setEmployees(_ employees: [[Employee]])
+}
+
 class MainScreenTableViewManager: NSObject {
-    let employeeManager = EmployeeManager()
+    private var employees = [[Employee]]()
+}
+
+// MARK: - ListTableViewManagerProtocol
+extension MainScreenTableViewManager: ListTableViewManagerProtocol {
+    func setEmployees(_ employees: [[Employee]]) {
+        self.employees = employees
+    }
 }
 
 extension MainScreenTableViewManager: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        employeeManager.employees.count
+        employees.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        employeeManager.employees[section].count
+        employees[section].count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        switch employeeManager.employees[indexPath.section][indexPath.row].employeeType {
+        switch employees[indexPath.section][indexPath.row].employeeType {
         case .management:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(ManagerCell.self)", for: indexPath) as? ManagerCell
             else {
                 fatalError("Could not deque cell")
             }
-            guard let manager = employeeManager.employees[indexPath.section][indexPath.row] as? Manager
+            guard let manager = employees[indexPath.section][indexPath.row] as? Manager
             else {
                 fatalError("Could not downcast to manager")
             }
@@ -34,10 +45,10 @@ extension MainScreenTableViewManager: UITableViewDataSource {
             else {
                 fatalError("Could not deque cell")
             }
-           guard let accountant = employeeManager.employees[indexPath.section][indexPath.row]  as? Accountant
+            guard let accountant = employees[indexPath.section][indexPath.row]  as? Accountant
             else {
-               fatalError("Could not downcast to accountant")
-           }
+                fatalError("Could not downcast to accountant")
+            }
             cell.configureCell(
                 name: accountant.name,
                 salary: accountant.salary,
@@ -53,7 +64,7 @@ extension MainScreenTableViewManager: UITableViewDataSource {
                 fatalError("Could not deque cell")
             }
 
-            guard let employee = employeeManager.employees[indexPath.section][indexPath.row] as? BasicWorker
+            guard let employee = employees[indexPath.section][indexPath.row] as? BasicWorker
             else {
                 fatalError("Could not downcast to basic worker")
             }
@@ -75,7 +86,7 @@ extension MainScreenTableViewManager: UITableViewDelegate {
         var sectionTitle: String = ""
         var image: UIImage?
 
-        switch employeeManager.employees[section][0].employeeType {
+        switch employees[section][0].employeeType {
 
         case .management:
             sectionTitle = SharedResources.L10n.managerSectionName
