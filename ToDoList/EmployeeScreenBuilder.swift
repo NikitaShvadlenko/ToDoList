@@ -13,7 +13,7 @@ public enum ListScreenBuilder {
         viewController.setListDataSource(dataSource: listTableViewManager)
         viewController.setListDelegate(delegate: listTableViewManager)
         viewController.setListDragDelegate(dragDelegate: listTableViewManager)
-        
+
         presenter.tableViewManager = listTableViewManager
         presenter.fetchListUseCase = fetchListUseCase
 
