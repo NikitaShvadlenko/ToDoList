@@ -1,12 +1,19 @@
 import Foundation
 
-public class TimePeriod {
+public class TimePeriod: NSObject {
+
     let startTime: Date
     let finishTime: Date
 
     init(startTime: Date, finishTime: Date) {
         self.startTime = startTime
         self.finishTime = finishTime
+    }
+
+    public required init?(coder: NSCoder) {
+        startTime = coder.decodeObject(forKey: Keys.startTime.rawValue) as? Date ?? Date()
+        finishTime = coder.decodeObject(forKey: Keys.finishTime.rawValue) as? Date ?? Date()
+        super.init()
     }
 }
 
@@ -20,5 +27,18 @@ extension TimePeriod {
         let timePeriodString = String(startTimeString + " - " + finishTimeString)
 
         return timePeriodString
+    }
+
+    enum Keys: String {
+        case startTime
+        case finishTime
+    }
+}
+
+// MARK: NSCoding
+extension TimePeriod: NSCoding {
+    public func encode(with coder: NSCoder) {
+        coder.encode(startTime, forKey: Keys.startTime.rawValue)
+        coder.encode(finishTime, forKey: Keys.finishTime.rawValue)
     }
 }
