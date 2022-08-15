@@ -1,15 +1,26 @@
 import Foundation
 
-public enum AccountantType: String {
-    case payroll
-    case inventory
+public enum AccountantType: Int32 {
+    case payroll = 0
+    case inventory = 1
 }
 
 class Accountant: Employee {
     let breakHours: TimePeriod
     let deskNumber: Int
-    let accountantType: AccountantType
-    let accountantTypeValue: String
+    var accountantTypeValue: Int32
+
+    var accountantType: AccountantType {
+        get {
+            guard let accountantType = AccountantType(rawValue: accountantTypeValue) else {
+                fatalError("Accountant Type raw Value is not matching")
+            }
+            return accountantType
+        }
+        set {
+            self.accountantTypeValue = newValue.rawValue
+        }
+    }
 
     init(
         name: String,
@@ -20,7 +31,6 @@ class Accountant: Employee {
     ) {
         self.breakHours = breakHours
         self.deskNumber = deskNumber
-        self.accountantType = accountantType
         self.accountantTypeValue = accountantType.rawValue
         super.init(name: name, salary: salary, employeeType: .accountant)
     }

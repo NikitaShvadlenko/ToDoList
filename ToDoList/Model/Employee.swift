@@ -1,22 +1,32 @@
 import Foundation
 import CoreData
 
-public enum EmployeeType: String {
-    case management
-    case accountant
-    case basicWorker
+public enum EmployeeType: Int32 {
+    case management = 0
+    case accountant = 1
+    case basicWorker = 2
 }
 
 class Employee {
     let name: String
     let salary: Double
-    let employeeType: EmployeeType
-    let employeeTypeValue: String
+    var employeeTypeValue: Int32
+
+    var employeeType: EmployeeType {
+        get {
+            guard let employeeType = EmployeeType(rawValue: self.employeeTypeValue) else {
+                fatalError("Employee Type raw Value is not matchiing")
+            }
+            return  employeeType
+        }
+        set {
+            self.employeeTypeValue = newValue.rawValue
+        }
+    }
 
     init(name: String, salary: Double, employeeType: EmployeeType) {
         self.name = name
         self.salary = salary
-        self.employeeType = employeeType
         self.employeeTypeValue = employeeType.rawValue
     }
 }
