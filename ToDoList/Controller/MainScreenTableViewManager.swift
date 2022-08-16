@@ -53,7 +53,7 @@ extension MainScreenTableViewManager: UITableViewDataSource {
                 name: accountant.name,
                 salary: accountant.salary,
                 accountantType: accountant.accountantType,
-                deskNumber: accountant.deskNumber,
+                deskNumber: Int(accountant.deskNumber),
                 breakHours: accountant.breakHours.formatTimePeriodAsString()
             )
             return cell
@@ -72,7 +72,7 @@ extension MainScreenTableViewManager: UITableViewDataSource {
             cell.setupEmployeeTypeLabel(
                 name: employee.name,
                 salary: employee.salary,
-                deskNumber: employee.deskNumber,
+                deskNumber: Int(employee.deskNumber),
                 breakHours: employee.breakHours.formatTimePeriodAsString()
             )
             return cell
