@@ -2,9 +2,12 @@ import Foundation
 protocol BasicWorkerRepresentable {
     var breakHours: TimePeriod { get }
     var deskNumber: Int64 { get }
+    var name: String { get }
+    var salary: Double { get }
 }
 
-class BasicWorkerConstructor: BasicWorkerRepresentable {
+// Class is dependent on EmployeeConstructor - dependency injection is not possible. Revisit this implementation.
+class BasicWorkerConstructor: EmployeeConstructor, BasicWorkerRepresentable {
     let breakHours: TimePeriod
     let deskNumber: Int64
 

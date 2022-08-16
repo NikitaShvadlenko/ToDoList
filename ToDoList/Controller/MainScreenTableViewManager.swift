@@ -2,16 +2,16 @@ import UIKit
 import SharedResources
 
 protocol ListTableViewManagerProtocol {
-    func setEmployees(_ employees: [[Employee]])
+    func setEmployees(_ employees: [[EmployeeRepresentable]])
 }
 
 class MainScreenTableViewManager: NSObject {
-    private var employees = [[Employee]]()
+    private var employees = [[EmployeeRepresentable]]()
 }
 
 // MARK: - ListTableViewManagerProtocol
 extension MainScreenTableViewManager: ListTableViewManagerProtocol {
-    func setEmployees(_ employees: [[Employee]]) {
+    func setEmployees(_ employees: [[EmployeeRepresentable]]) {
         self.employees = employees
     }
 }
@@ -33,7 +33,7 @@ extension MainScreenTableViewManager: UITableViewDataSource {
             else {
                 fatalError("Could not deque cell")
             }
-            guard let manager = employees[indexPath.section][indexPath.row] as? Manager
+            guard let manager = employees[indexPath.section][indexPath.row] as? ManagerRepresentable
             else {
                 fatalError("Could not downcast to manager")
             }
@@ -45,7 +45,7 @@ extension MainScreenTableViewManager: UITableViewDataSource {
             else {
                 fatalError("Could not deque cell")
             }
-            guard let accountant = employees[indexPath.section][indexPath.row]  as? Accountant
+            guard let accountant = employees[indexPath.section][indexPath.row]  as? AccountantRepresentable
             else {
                 fatalError("Could not downcast to accountant")
             }
@@ -64,7 +64,7 @@ extension MainScreenTableViewManager: UITableViewDataSource {
                 fatalError("Could not deque cell")
             }
 
-            guard let employee = employees[indexPath.section][indexPath.row] as? BasicWorker
+            guard let employee = employees[indexPath.section][indexPath.row] as? BasicWorkerRepresentable
             else {
                 fatalError("Could not downcast to basic worker")
             }

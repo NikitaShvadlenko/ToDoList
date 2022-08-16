@@ -7,7 +7,7 @@ class ListPresenter {
 
     var employeeStorage: EmployeeStorageProtocol?
     var tableViewManager: MainScreenTableViewManager?
-    var fetchListUseCase: AsyncUseCase<Void, [[Employee]]>?
+    var fetchListUseCase: AsyncUseCase<Void, [[EmployeeRepresentable]]>?
 }
 
 extension ListPresenter: ListScreenControllerOutput {

@@ -1,13 +1,12 @@
 import CoreData
 
+public enum EmployeeType: Int32 {
+    case management = 0
+    case accountant = 1
+    case basicWorker = 2
+}
+
 extension Employee {
-
-    public enum EmployeeType: Int32 {
-        case management = 0
-        case accountant = 1
-        case basicWorker = 2
-    }
-
     @nonobjc
     public class func fetchRequest() -> NSFetchRequest<Employee> {
         NSFetchRequest<Employee>(entityName: "Employee")

@@ -1,7 +1,7 @@
 import Foundation
 
 protocol ListProviderProtocol {
-    func fetchEmployeeData(completion: @escaping(Result<[[Employee]], Error>) -> Void)
+    func fetchEmployeeData(completion: @escaping(Result<[[EmployeeRepresentable]], Error>) -> Void)
 }
 
 class ListProvider {
@@ -10,9 +10,9 @@ class ListProvider {
 
 // MARK: - ListProviderProtocol
 extension ListProvider: ListProviderProtocol {
-    func fetchEmployeeData(completion: @escaping (Result<[[Employee]], Error>) -> Void) {
+    func fetchEmployeeData(completion: @escaping (Result<[[EmployeeRepresentable]], Error>) -> Void) {
         let accountants = [
-            Accountant(
+            AccountantConstructor(
                 name: "Леонид Аркадьевич Якубович",
                 salary: 155000.00,
                 breakHours: TimePeriod(startTime: Date(timeIntervalSince1970: 20), finishTime: Date()),
@@ -20,7 +20,7 @@ extension ListProvider: ListProviderProtocol {
                 accountantType: .inventory
             ),
 
-            Accountant(
+            AccountantConstructor(
                 name: "Жмышенко Валерий Альбертович",
                 salary: 150000.00,
                 breakHours: TimePeriod(startTime: Date(timeIntervalSince1970: 20), finishTime: Date(timeIntervalSince1970: 30)),
@@ -30,7 +30,7 @@ extension ListProvider: ListProviderProtocol {
         ]
 
         let managers = [
-            Manager(
+            ManagerConstructor(
                 name: "Розинкова Татьяна Петровна",
                 salary: 400000.00,
                 meetingHours: TimePeriod(
@@ -41,7 +41,7 @@ extension ListProvider: ListProviderProtocol {
         ]
 
         let basicWorkers = [
-            BasicWorker(
+            BasicWorkerConstructor(
                 name: "Николай Николаевич Николаев",
                 salary: 20000.00,
                 breakHours: TimePeriod(

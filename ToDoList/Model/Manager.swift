@@ -2,9 +2,12 @@ import Foundation
 
 protocol ManagerRepresentable {
     var meetingHours: TimePeriod { get }
+    var name: String { get }
+    var salary: Double { get }
 }
 
-class ManagerConstructor: ManagerRepresentable {
+// Class is dependent on EmployeeConstructor - dependency injection is not possible. Revisit this implementation.
+class ManagerConstructor: EmployeeConstructor, ManagerRepresentable {
     let meetingHours: TimePeriod
 
     init(name: String, salary: Double, meetingHours: TimePeriod) {

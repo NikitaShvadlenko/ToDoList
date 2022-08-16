@@ -3,10 +3,14 @@ import Foundation
 protocol AccountantRepresentable {
     var breakHours: TimePeriod { get }
     var deskNumber: Int64 { get }
-    var accountantTypeValue: Int32 { get set }
+    var accountantTypeValue: Int32 { get }
+    var name: String { get }
+    var salary: Double { get }
+    var accountantType: AccountantType { get }
 }
 
-class AccountantConstructor: AccountantRepresentable {
+// Class is dependent on EmployeeConstructor - dependency injection is not possible. Revisit this implementation.
+class AccountantConstructor: EmployeeConstructor, AccountantRepresentable {
     let breakHours: TimePeriod
     let deskNumber: Int64
     var accountantTypeValue: Int32
