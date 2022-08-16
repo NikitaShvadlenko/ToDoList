@@ -1,9 +1,11 @@
 import Foundation
 import UseCase
+import CoreData
 
 class ListPresenter {
    weak var viewController: ListScreenControllerInput?
 
+    var employeeStorage: EmployeeStorageProtocol?
     var tableViewManager: MainScreenTableViewManager?
     var fetchListUseCase: AsyncUseCase<Void, [[Employee]]>?
 }

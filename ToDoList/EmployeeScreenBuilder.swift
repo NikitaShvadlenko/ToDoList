@@ -7,6 +7,7 @@ public enum ListScreenBuilder {
         let presenter = ListPresenter()
         let listProvider = ListProvider()
         let fetchListUseCase = FetchListUseCase(listProvider: listProvider)
+        let employeeStorage = EmployeeStorage()
 
         let listTableViewManager = MainScreenTableViewManager()
 
@@ -16,6 +17,7 @@ public enum ListScreenBuilder {
 
         presenter.tableViewManager = listTableViewManager
         presenter.fetchListUseCase = fetchListUseCase
+        presenter.employeeStorage = employeeStorage
 
         viewController.presenter = presenter
         presenter.viewController = viewController
