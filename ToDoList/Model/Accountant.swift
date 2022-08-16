@@ -1,6 +1,6 @@
 import Foundation
 
-protocol AccountantRepresentable {
+public protocol AccountantRepresentable: AnyObject {
     var breakHours: TimePeriod { get }
     var deskNumber: Int64 { get }
     var accountantTypeValue: Int32 { get }

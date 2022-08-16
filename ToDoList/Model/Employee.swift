@@ -1,6 +1,6 @@
 import Foundation
 
-protocol EmployeeRepresentable {
+public protocol EmployeeRepresentable: AnyObject {
     var name: String { get }
     var salary: Double { get }
     var employeeType: EmployeeType { get set }

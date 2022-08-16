@@ -1,5 +1,6 @@
 import Foundation
-protocol BasicWorkerRepresentable {
+
+public protocol BasicWorkerRepresentable: AnyObject {
     var breakHours: TimePeriod { get }
     var deskNumber: Int64 { get }
     var name: String { get }

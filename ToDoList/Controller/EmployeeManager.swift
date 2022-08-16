@@ -1,19 +1,20 @@
 import Foundation
 
 protocol EmployeeManagerProtocol {
-    func addEmployee(employee: Employee, completion: @escaping (Result<Void, Error>) -> Void)
-    func removeEmployee(employee: Employee, completion: @escaping (Result<Void, Error>) -> Void)
-    func updateEmployeeList(with employee: Employee)
+    func addEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void)
+    func removeEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void)
+    func updateEmployeeList(with employee: EmployeeRepresentable)
+    func fetchEmployeeList(from listProvider: ListProviderProtocol)
 }
 
 class EmployeeManager: NSObject {
     let employeeDataProvider = ListProvider()
 
-    var employees: [[Employee]] = []
+    var employees: [[EmployeeRepresentable]] = []
 
-    private var accountants: [Accountant] = []
-    private var managers: [Manager] = []
-    private var basicWorkers: [BasicWorker] = []
+    private var accountants: [AccountantRepresentable] = []
+    private var managers: [ManagerRepresentable] = []
+    private var basicWorkers: [BasicWorkerRepresentable] = []
 
     override init() {
         super.init()
@@ -22,22 +23,41 @@ class EmployeeManager: NSObject {
 
 // MARK: EmployeeManagerProtocol
 extension EmployeeManager: EmployeeManagerProtocol {
-    func addEmployee(employee: Employee, completion: @escaping (Result<Void, Error>) -> Void) {
+
+    func fetchEmployeeList(from listProvider: ListProviderProtocol) {
+//        listProvider.fetchEmployeeData { [weak self] result in
+//            switch result {
+//            case let .success(employees):
+//                let employees = employees.map {
+//                    $0.compactMap { employeeRepresentable in
+//                        employeeRepresentable as? Employee
+//                    }
+//                }
+//
+//                self?.employees = employees
+//
+//            case let .failure(error):
+//                print(error)
+//            }
+//        }
+    }
+
+    func addEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void) {
         updateEmployeeList(with: employee)
         completion(.success(Void()))
     }
 
-    func removeEmployee(employee: Employee, completion: @escaping (Result<Void, Error>) -> Void) {
+    func removeEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void) {
         switch employee.employeeType {
 
         case .management:
-            self.managers = self.managers.filter { $0 != employee }
+            self.managers = self.managers.filter { $0 !== employee }
 
         case .accountant:
-            self.accountants = self.accountants.filter { $0 != employee }
+            self.accountants = self.accountants.filter { $0 !== employee }
 
         case .basicWorker:
-            self.basicWorkers = self.basicWorkers.filter { $0 != employee }
+            self.basicWorkers = self.basicWorkers.filter { $0 !== employee }
         }
 
         employees = [managers, basicWorkers, accountants]
@@ -45,20 +65,20 @@ extension EmployeeManager: EmployeeManagerProtocol {
         completion(.success(Void()))
     }
 
-    func updateEmployeeList(with employee: Employee) {
+    func updateEmployeeList(with employee: EmployeeRepresentable) {
 
         switch employee.employeeType {
 
         case .management:
-            guard let manager = employee as? Manager else { return }
+            guard let manager = employee as? ManagerRepresentable else { return }
             managers.append(manager)
 
         case .accountant:
-            guard let accountant = employee as? Accountant else { return }
+            guard let accountant = employee as? AccountantRepresentable else { return }
             accountants.append(accountant)
 
         case .basicWorker:
-            guard let basicWorker = employee as? BasicWorker else { return }
+            guard let basicWorker = employee as? BasicWorkerRepresentable else { return }
             basicWorkers.append(basicWorker)
         }
 

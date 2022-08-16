@@ -10,6 +10,7 @@ public enum ListScreenBuilder {
         let employeeStorage = EmployeeStorage()
 
         let listTableViewManager = MainScreenTableViewManager()
+        let employeeManager = EmployeeManager()
 
         viewController.setListDataSource(dataSource: listTableViewManager)
         viewController.setListDelegate(delegate: listTableViewManager)
@@ -18,6 +19,7 @@ public enum ListScreenBuilder {
         presenter.tableViewManager = listTableViewManager
         presenter.fetchListUseCase = fetchListUseCase
         presenter.employeeStorage = employeeStorage
+        presenter.employeeRepository = employeeManager
 
         viewController.presenter = presenter
         presenter.viewController = viewController
