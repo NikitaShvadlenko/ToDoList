@@ -19,7 +19,6 @@ public enum ListScreenBuilder {
         presenter.tableViewManager = listTableViewManager
         presenter.fetchListUseCase = fetchListUseCase
         presenter.employeeStorage = employeeStorage
-        presenter.employeeRepository = employeeManager
 
         viewController.presenter = presenter
         presenter.viewController = viewController

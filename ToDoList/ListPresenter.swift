@@ -5,7 +5,6 @@ import CoreData
 class ListPresenter {
    weak var viewController: ListScreenControllerInput?
 
-    var employeeRepository: EmployeeManagerProtocol?
     var employeeStorage: EmployeeStorageProtocol?
     var tableViewManager: MainScreenTableViewManager?
     var fetchListUseCase: AsyncUseCase<Void, [[EmployeeRepresentable]]>?
