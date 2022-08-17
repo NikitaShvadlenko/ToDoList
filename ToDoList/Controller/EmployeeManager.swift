@@ -4,7 +4,7 @@ protocol EmployeeManagerProtocol {
     func addEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void)
     func removeEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void)
     func updateEmployeeList(with employee: EmployeeRepresentable)
-    func fetchEmployeeList(from listProvider: ListProviderProtocol)
+    func fetchEmployeeList(from listProvider: ListProviderProtocol, completion: @escaping(Result<[[EmployeeRepresentable]], Error>) -> Void)
 }
 
 class EmployeeManager: NSObject {
@@ -24,7 +24,7 @@ class EmployeeManager: NSObject {
 // MARK: EmployeeManagerProtocol
 extension EmployeeManager: EmployeeManagerProtocol {
 
-    func fetchEmployeeList(from listProvider: ListProviderProtocol) {
+    func fetchEmployeeList(from listProvider: ListProviderProtocol, completion: @escaping(Result<[[EmployeeRepresentable]], Error>) -> Void) {
         listProvider.fetchEmployeeData { result in
             switch result {
 
@@ -34,6 +34,7 @@ extension EmployeeManager: EmployeeManagerProtocol {
             case let .failure(error):
                 print(error)
             }
+            completion(result)
         }
     }
 

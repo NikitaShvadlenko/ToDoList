@@ -3,12 +3,14 @@ import UseCase
 
 final class FetchListUseCase: AsyncUseCase<Void, [[EmployeeRepresentable]]> {
     private let listProvider: ListProviderProtocol
+    private let employeeManager: EmployeeManagerProtocol
 
-    init(listProvider: ListProviderProtocol) {
+    init(listProvider: ListProviderProtocol, employeeManager: EmployeeManagerProtocol) {
         self.listProvider = listProvider
+        self.employeeManager = employeeManager
     }
 
     override func executeAsync(_ requestArgument: Void, completion: @escaping (Result<[[EmployeeRepresentable]], Error>) -> Void) {
-        listProvider.fetchEmployeeData(completion: completion)
+        employeeManager.fetchEmployeeList(from: listProvider, completion: completion)
     }
 }
