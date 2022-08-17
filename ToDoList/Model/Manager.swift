@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol ManagerRepresentable: AnyObject {
+public protocol ManagerRepresentable: EmployeeRepresentable {
     var meetingHours: TimePeriod { get }
     var name: String { get }
     var salary: Double { get }

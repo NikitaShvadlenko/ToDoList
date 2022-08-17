@@ -25,21 +25,16 @@ class EmployeeManager: NSObject {
 extension EmployeeManager: EmployeeManagerProtocol {
 
     func fetchEmployeeList(from listProvider: ListProviderProtocol) {
-//        listProvider.fetchEmployeeData { [weak self] result in
-//            switch result {
-//            case let .success(employees):
-//                let employees = employees.map {
-//                    $0.compactMap { employeeRepresentable in
-//                        employeeRepresentable as? Employee
-//                    }
-//                }
-//
-//                self?.employees = employees
-//
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
+        listProvider.fetchEmployeeData { result in
+            switch result {
+
+            case let .success(employees):
+                self.employees = employees
+
+            case let .failure(error):
+                print(error)
+            }
+        }
     }
 
     func addEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -60,7 +55,7 @@ extension EmployeeManager: EmployeeManagerProtocol {
             self.basicWorkers = self.basicWorkers.filter { $0 !== employee }
         }
 
-        employees = [managers, basicWorkers, accountants]
+        employees = [managers, accountants, basicWorkers]
 
         completion(.success(Void()))
     }
