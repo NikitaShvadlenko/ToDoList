@@ -4,7 +4,7 @@ import CoreData
 import UIKit
 
 class ListPresenter {
-   weak var viewController: ListScreenControllerInput?
+    weak var viewController: ListScreenControllerInput?
     var tableViewManager: MainScreenTableViewManager?
     var fetchListUseCase: AsyncUseCase<Void, [[EmployeeRepresentable]]>?
     var persistentContainer: PersistentContainer?
@@ -14,7 +14,7 @@ extension ListPresenter: ListScreenControllerOutput {
     func viewDidLoad(_ view: ListScreenControllerInput) {
         fetchEmployeeList()
         saveDataToCoreData()
-//retrieveFromCoreData()
+        retrieveFromCoreData()
     }
 
     func viewDidTapAddEmployeeButton(_ view: ListScreenControllerInput) {
@@ -38,25 +38,29 @@ extension ListPresenter {
     }
 
     private func saveDataToCoreData() {
-        let context = PersistentContainer.shared.persistentContainer.viewContext
-        let newUser = NSEntityDescription.insertNewObject(forEntityName: "Accountant", into: context) 
+        let container = PersistentContainer.shared.persistentContainer
+        let context = container.viewContext
 
-        newUser.setValue("ALALA", forKey: AccountantKeys.name.rawValue)
-        newUser.setValue(25.000, forKey: AccountantKeys.salary.rawValue)
-        newUser.setValue(1, forKey: AccountantKeys.employeeTypeValue.rawValue)
-        newUser.setValue(12, forKey: AccountantKeys.deskNumber.rawValue)
-        newUser.setValue(TimePeriod(startTime: Date(), finishTime: Date()), forKey: AccountantKeys.breakHours.rawValue)
-        newUser.setValue(1, forKey: AccountantKeys.accountantTypeValue.rawValue)
-
-        do {
-            try context.save()
-        } catch {
-            print("Error saving")
-        }
+        container.loadPersistentStores(completionHandler: { result, error in
+            let newUser = NSEntityDescription.insertNewObject(forEntityName: "Accountant", into: context)
+            newUser.setValue("ALALA", forKey: AccountantKeys.name.rawValue)
+            newUser.setValue(25.000, forKey: AccountantKeys.salary.rawValue)
+            newUser.setValue(1, forKey: AccountantKeys.employeeTypeValue.rawValue)
+            newUser.setValue(12, forKey: AccountantKeys.deskNumber.rawValue)
+            newUser.setValue(TimePeriod(startTime: Date(), finishTime: Date()), forKey: AccountantKeys.breakHours.rawValue)
+            newUser.setValue(1, forKey: AccountantKeys.accountantTypeValue.rawValue)
+            do {
+                try context.save()
+            } catch {
+                print("Error saving")
+            }
+        })
     }
 
     private func retrieveFromCoreData() {
+        let container = PersistentContainer.shared.persistentContainer
         let context = PersistentContainer.shared.persistentContainer.viewContext
+
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Accountant")
         request.returnsObjectsAsFaults = false
         do {
