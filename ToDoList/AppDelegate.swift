@@ -1,5 +1,6 @@
 import UIKit
 import SharedResources
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
