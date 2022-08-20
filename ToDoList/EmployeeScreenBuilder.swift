@@ -3,6 +3,7 @@ import UIKit
 
 public enum ListScreenBuilder {
     public static func buildListScreen() -> UIViewController {
+
         let viewController = ListViewController()
         let presenter = ListPresenter()
         let listProvider = ListProvider()
@@ -11,6 +12,10 @@ public enum ListScreenBuilder {
 
         let listTableViewManager = MainScreenTableViewManager()
 
+        createListContainer { container in
+            employeeManager.persistentContainer = container
+            employeeManager.managedObjectContext = container.viewContext
+        }
         viewController.setListDataSource(dataSource: listTableViewManager)
         viewController.setListDelegate(delegate: listTableViewManager)
         viewController.setListDragDelegate(dragDelegate: listTableViewManager)

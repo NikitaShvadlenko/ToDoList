@@ -1,6 +1,6 @@
 import Foundation
 import CoreData
 
-class Manager: NSManagedObject {
+class Manager: Employee {
     @NSManaged fileprivate(set) var meetingHours: TimePeriod
 }

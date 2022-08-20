@@ -6,7 +6,7 @@ public enum AccountantType: Int32 {
     case inventory = 1
 }
 
-class Accountant: NSManagedObject {
+class Accountant: Employee {
     @NSManaged fileprivate(set) var breakHours: TimePeriod
     @NSManaged fileprivate(set) var deskNumber: Int
     @NSManaged fileprivate(set) var accountantTypeValue: Int32

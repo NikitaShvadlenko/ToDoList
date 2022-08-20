@@ -1,16 +1,18 @@
-import Foundation
+import CoreData
 
 protocol EmployeeManagerProtocol {
-    func addEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void)
+    // func addEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void)
     func removeEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void)
-    func updateEmployeeList(with employee: EmployeeRepresentable)
+    //  func updateEmployeeList(with employee: EmployeeRepresentable)
     func fetchEmployeeList(from listProvider: ListProviderProtocol, completion: @escaping(Result<[[EmployeeRepresentable]], Error>) -> Void)
 }
 
 class EmployeeManager: NSObject {
     let employeeDataProvider = ListProvider()
-
     var employees: [[EmployeeRepresentable]] = []
+
+    var managedObjectContext: NSManagedObjectContext?
+    var persistentContainer: NSPersistentContainer?
 
     private var accountants: [AccountantRepresentable] = []
     private var managers: [ManagerRepresentable] = []
@@ -38,10 +40,10 @@ extension EmployeeManager: EmployeeManagerProtocol {
         }
     }
 
-    func addEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void) {
-        updateEmployeeList(with: employee)
-        completion(.success(Void()))
-    }
+    //    func addEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void) {
+    //        updateEmployeeList(with: employee)
+    //        completion(.success(Void()))
+    //    }
 
     func removeEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void) {
         switch employee.employeeType {
@@ -61,23 +63,55 @@ extension EmployeeManager: EmployeeManagerProtocol {
         completion(.success(Void()))
     }
 
-    func updateEmployeeList(with employee: EmployeeRepresentable) {
+    //    func updateEmployeeList(with employee: EmployeeRepresentable) {
+    //
+    //        switch employee.employeeType {
+    //
+    //        case .management:
+    //            guard let manager = employee as? ManagerRepresentable else { return }
+    //            managers.append(manager)
+    //
+    //        case .accountant:
+    //            guard let accountant = employee as? AccountantRepresentable else { return }
+    //            accountants.append(accountant)
+    //
+    //        case .basicWorker:
+    //            guard let basicWorker = employee as? BasicWorkerRepresentable else { return }
+    //            basicWorkers.append(basicWorker)
+    //        }
+    //
+    //        employees = [managers, basicWorkers, accountants]
+    //    }
+}
 
-        switch employee.employeeType {
+// MARK: Core Data
+extension EmployeeManager {
+    // Do three seperate requests for each entity -> convert results in [EmployeeRepresentable] -> assign results to corresponding vars -> employees = [accountants, managers, basicWorkers]
+    private func fetchFromCoreData(completion: @escaping(Result<[[EmployeeRepresentable]], Error>) -> Void) {
+    }
 
-        case .management:
-            guard let manager = employee as? ManagerRepresentable else { return }
-            managers.append(manager)
+    private func fetchManagersFromContainer() -> [ManagerRepresentable] {
+        guard let context = managedObjectContext else { fatalError("Could not create managed context") }
+        let request = Manager.sortedFetchRequest
+        request.fetchBatchSize = 20
+        request.returnsObjectsAsFaults = false
+        let fetchResultController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
 
-        case .accountant:
-            guard let accountant = employee as? AccountantRepresentable else { return }
-            accountants.append(accountant)
-
-        case .basicWorker:
-            guard let basicWorker = employee as? BasicWorkerRepresentable else { return }
-            basicWorkers.append(basicWorker)
+        do {
+            let result = try fetchResultController.fetchRequest.execute()
+            var convertedManagers: [ManagerRepresentable] = []
+            for manager in result {
+                convertedManagers.append(
+                    ManagerConstructor(
+                    name: manager.name,
+                    salary: manager.salary,
+                    meetingHours: manager.meetingHours
+                    )
+                )
+            }
+            return convertedManagers
+        } catch {
+            return []
         }
-
-        employees = [managers, basicWorkers, accountants]
     }
 }

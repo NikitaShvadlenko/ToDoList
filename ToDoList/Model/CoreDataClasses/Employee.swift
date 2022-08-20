@@ -24,3 +24,9 @@ class Employee: NSManagedObject {
         }
     }
 }
+
+extension Employee: Managed {
+    static var defaultSortDescriptors: [NSSortDescriptor] {
+        [NSSortDescriptor(key: #keyPath(name), ascending: false)]
+    }
+}
