@@ -1,20 +1,19 @@
+import Foundation
 import CoreData
 
-public enum EmployeeType: Int32, CaseIterable {
+public enum EmployeeType: Int32 {
     case management = 0
     case accountant = 1
     case basicWorker = 2
 }
 
-extension Employee {
-    @nonobjc
-    public class func fetchRequest() -> NSFetchRequest<Employee> {
-        NSFetchRequest<Employee>(entityName: "Employee")
-    }
-
-    @NSManaged public var employeeTypeValue: Int32
-    @NSManaged public var name: String
-    @NSManaged public var salary: Double
+class Employee: NSManagedObject {
+    // swiftlint:disable:next lower_acl_than_parent
+    @NSManaged public private(set) var name: String
+    // swiftlint:disable:next lower_acl_than_parent
+    @NSManaged public private(set) var salary: Double
+    // swiftlint:disable:next lower_acl_than_parent
+    @NSManaged public private(set) var employeeTypeValue: Int32
 
     var employeeType: EmployeeType {
         get {
@@ -27,8 +26,4 @@ extension Employee {
             self.employeeTypeValue = newValue.rawValue
         }
     }
-}
-
-extension Employee: Identifiable {
-
 }
