@@ -7,12 +7,12 @@ public enum EmployeeType: Int32 {
     case basicWorker = 2
 }
 
-class Employee {
-    let name: String
-    let salary: Double
-    var employeeTypeValue: Int32
+class Employee: NSManagedObject {
+    @NSManaged fileprivate(set) var name: String
+    @NSManaged fileprivate(set) var salary: Double
+    @NSManaged fileprivate(set) var employeeTypeValue: Int32
 
-    var aemployeeType: EmployeeType {
+    var employeeType: EmployeeType {
         get {
             guard let employeeType = EmployeeType(rawValue: employeeTypeValue) else {
                 fatalError("Accountant Type raw Value is not matching")
@@ -22,11 +22,5 @@ class Employee {
         set {
             self.employeeTypeValue = newValue.rawValue
         }
-    }
-
-    init(name: String, salary: Double, employeeType: EmployeeType) {
-        self.name = name
-        self.salary = salary
-        self.employeeTypeValue = employeeType.rawValue
     }
 }

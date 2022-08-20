@@ -1,12 +1,7 @@
 import Foundation
+import CoreData
 
-class BasicWorker: Employee {
-    let breakHours: TimePeriod
-    let deskNumber: Int
-
-    init(name: String, salary: Double, breakHours: TimePeriod, deskNumber: Int) {
-        self.breakHours = breakHours
-        self.deskNumber = deskNumber
-        super.init(name: name, salary: salary, employeeType: .basicWorker)
-    }
+class BasicWorker: NSManagedObject {
+    @NSManaged fileprivate(set) var breakHours: TimePeriod
+    @NSManaged fileprivate(set) var deskNumber: Int
 }
