@@ -6,16 +6,14 @@ public enum ListScreenBuilder {
 
         let viewController = ListViewController()
         let presenter = ListPresenter()
-        let listProvider = ListProvider()
+      //  let listProvider = ListProvider()
         let employeeManager = EmployeeManager()
-        let fetchListUseCase = FetchListUseCase(listProvider: listProvider, employeeManager: employeeManager)
+
+        let fetchListUseCase = FetchListFromCoreDataUseCase(employeeManager: employeeManager)
+       // let fetchListUseCase = FetchListUseCase(listProvider: listProvider, employeeManager: employeeManager)
 
         let listTableViewManager = MainScreenTableViewManager()
 
-        createListContainer { container in
-            employeeManager.persistentContainer = container
-            employeeManager.managedObjectContext = container.viewContext
-        }
         viewController.setListDataSource(dataSource: listTableViewManager)
         viewController.setListDelegate(delegate: listTableViewManager)
         viewController.setListDragDelegate(dragDelegate: listTableViewManager)
@@ -23,9 +21,12 @@ public enum ListScreenBuilder {
         presenter.tableViewManager = listTableViewManager
         presenter.fetchListUseCase = fetchListUseCase
 
-        viewController.presenter = presenter
-        presenter.viewController = viewController
-
+        createListContainer { container in
+            employeeManager.persistentContainer = container
+            employeeManager.managedObjectContext = container.viewContext
+            presenter.viewController = viewController
+            viewController.presenter = presenter
+        }
         return viewController
     }
 }

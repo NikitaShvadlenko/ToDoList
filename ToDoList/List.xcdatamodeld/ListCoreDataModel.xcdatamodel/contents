@@ -15,12 +15,12 @@
         <attribute name="salary" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Manager" representedClassName="Manager" parentEntity="Employee" syncable="YES">
-        <attribute name="meetingHours" attributeType="Transformable" valueTransformerName="nssecureunarchivefromdatatransformer" customClassName="TimePeriod"/>
+        <attribute name="meetingHours" attributeType="Transformable" valueTransformerName="" customClassName="TimePeriod"/>
     </entity>
     <elements>
         <element name="Accountant" positionX="18" positionY="63" width="128" height="74"/>
         <element name="BasicWorker" positionX="54" positionY="99" width="128" height="59"/>
         <element name="Employee" positionX="-27" positionY="18" width="128" height="88"/>
-        <element name="Manager" positionX="18" positionY="63" width="128" height="58"/>
+        <element name="Manager" positionX="18" positionY="63" width="128" height="44"/>
     </elements>
 </model>

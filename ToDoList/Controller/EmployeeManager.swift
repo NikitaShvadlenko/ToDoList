@@ -5,6 +5,7 @@ protocol EmployeeManagerProtocol {
     func removeEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void)
     //  func updateEmployeeList(with employee: EmployeeRepresentable)
     func fetchEmployeeList(from listProvider: ListProviderProtocol, completion: @escaping(Result<[[EmployeeRepresentable]], Error>) -> Void)
+    func fetchFromCoreData(completion: @escaping(Result<[[EmployeeRepresentable]], Error>) -> Void)
 }
 
 class EmployeeManager: NSObject {
@@ -45,7 +46,7 @@ extension EmployeeManager: EmployeeManagerProtocol {
     //        completion(.success(Void()))
     //    }
 
-    func removeEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void) {
+   func removeEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void) {
         switch employee.employeeType {
 
         case .management:
@@ -87,7 +88,7 @@ extension EmployeeManager: EmployeeManagerProtocol {
 // MARK: Core Data
 extension EmployeeManager {
 
-    private func fetchFromCoreData(completion: @escaping(Result<[[EmployeeRepresentable]], Error>) -> Void) {
+     func fetchFromCoreData(completion: @escaping(Result<[[EmployeeRepresentable]], Error>) -> Void) {
         self.basicWorkers = fetchBasicWorkersFromContainer()
         self.managers = fetchManagersFromContainer()
         self.accountants = fetchAccountantsFromContainer()
