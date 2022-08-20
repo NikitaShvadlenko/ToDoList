@@ -86,8 +86,67 @@ extension EmployeeManager: EmployeeManagerProtocol {
 
 // MARK: Core Data
 extension EmployeeManager {
-    // Do three seperate requests for each entity -> convert results in [EmployeeRepresentable] -> assign results to corresponding vars -> employees = [accountants, managers, basicWorkers]
+
     private func fetchFromCoreData(completion: @escaping(Result<[[EmployeeRepresentable]], Error>) -> Void) {
+        self.basicWorkers = fetchBasicWorkersFromContainer()
+        self.managers = fetchManagersFromContainer()
+        self.accountants = fetchAccountantsFromContainer()
+
+        self.employees = [basicWorkers, accountants, managers]
+        completion(.success(employees))
+    }
+
+    private func fetchBasicWorkersFromContainer() -> [BasicWorkerRepresentable] {
+        guard let context = managedObjectContext else { fatalError("Could not create managed context") }
+        let request = BasicWorker.sortedFetchRequest
+        request.fetchBatchSize = 20
+        request.returnsObjectsAsFaults = false
+        let fetchResultController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+
+        do {
+            let result = try fetchResultController.fetchRequest.execute()
+            var convertedBasicWorkers: [BasicWorkerRepresentable] = []
+            for basicWorker in result {
+                convertedBasicWorkers.append(
+                    BasicWorkerConstructor(
+                        name: basicWorker.name,
+                        salary: basicWorker.salary,
+                        breakHours: basicWorker.breakHours,
+                        deskNumber: Int64(basicWorker.deskNumber)
+                    )
+                )
+            }
+            return basicWorkers
+        } catch {
+            return []
+        }
+    }
+
+    private func fetchAccountantsFromContainer() -> [AccountantRepresentable] {
+        guard let context = managedObjectContext else { fatalError("Could not create managed context") }
+        let request = Accountant.sortedFetchRequest
+        request.fetchBatchSize = 20
+        request.returnsObjectsAsFaults = false
+        let fetchResultController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+
+        do {
+            let result = try fetchResultController.fetchRequest.execute()
+            var convertedAccountants: [AccountantRepresentable] = []
+            for accountant in result {
+                convertedAccountants.append(
+                    AccountantConstructor(
+                        name: accountant.name,
+                        salary: accountant.salary,
+                        breakHours: accountant.breakHours,
+                        deskNumber: Int64(accountant.deskNumber),
+                        accountantType: accountant.accountantType
+                    )
+                )
+            }
+            return convertedAccountants
+        } catch {
+            return []
+        }
     }
 
     private func fetchManagersFromContainer() -> [ManagerRepresentable] {
@@ -103,9 +162,9 @@ extension EmployeeManager {
             for manager in result {
                 convertedManagers.append(
                     ManagerConstructor(
-                    name: manager.name,
-                    salary: manager.salary,
-                    meetingHours: manager.meetingHours
+                        name: manager.name,
+                        salary: manager.salary,
+                        meetingHours: manager.meetingHours
                     )
                 )
             }
