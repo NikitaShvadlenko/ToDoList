@@ -7,23 +7,26 @@ public enum EmployeeType: Int32 {
     case basicWorker = 2
 }
 
-class Employee: NSManagedObject {
-    // swiftlint:disable:next lower_acl_than_parent
-    @NSManaged public private(set) var name: String
-    // swiftlint:disable:next lower_acl_than_parent
-    @NSManaged public private(set) var salary: Double
-    // swiftlint:disable:next lower_acl_than_parent
-    @NSManaged public private(set) var employeeTypeValue: Int32
+class Employee {
+    let name: String
+    let salary: Double
+    var employeeTypeValue: Int32
 
-    var employeeType: EmployeeType {
+    var aemployeeType: EmployeeType {
         get {
-            guard let employeeType = EmployeeType(rawValue: self.employeeTypeValue) else {
-                fatalError("Employee Type raw Value is not matchiing")
+            guard let employeeType = EmployeeType(rawValue: employeeTypeValue) else {
+                fatalError("Accountant Type raw Value is not matching")
             }
-            return  employeeType
+            return employeeType
         }
         set {
             self.employeeTypeValue = newValue.rawValue
         }
+    }
+
+    init(name: String, salary: Double, employeeType: EmployeeType) {
+        self.name = name
+        self.salary = salary
+        self.employeeTypeValue = employeeType.rawValue
     }
 }
