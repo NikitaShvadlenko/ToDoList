@@ -12,6 +12,6 @@ class ManagerConstructor: EmployeeConstructor, ManagerRepresentable {
 
     init(name: String, salary: Double, meetingHours: TimePeriod) {
         self.meetingHours = meetingHours
-        super.init(name: name, salary: salary, employeeType: .management)
+        super.init(name: name, salary: salary, employeeType: .manager)
     }
 }

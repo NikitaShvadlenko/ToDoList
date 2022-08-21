@@ -1,7 +1,7 @@
 import CoreData
 
 protocol EmployeeManagerProtocol {
-    // func addEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void)
+    func addEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void)
     func removeEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void)
     //  func updateEmployeeList(with employee: EmployeeRepresentable)
     func fetchEmployeeList(from listProvider: ListProviderProtocol, completion: @escaping(Result<[[EmployeeRepresentable]], Error>) -> Void)
@@ -41,15 +41,15 @@ extension EmployeeManager: EmployeeManagerProtocol {
         }
     }
 
-    //    func addEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void) {
-    //        updateEmployeeList(with: employee)
-    //        completion(.success(Void()))
-    //    }
+    func addEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void) {
+        updateEmployeeList(with: employee)
+        completion(.success(Void()))
+    }
 
-   func removeEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void) {
+    func removeEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void) {
         switch employee.employeeType {
 
-        case .management:
+        case .manager:
             self.managers = self.managers.filter { $0 !== employee }
 
         case .accountant:
@@ -64,31 +64,45 @@ extension EmployeeManager: EmployeeManagerProtocol {
         completion(.success(Void()))
     }
 
-    //    func updateEmployeeList(with employee: EmployeeRepresentable) {
-    //
-    //        switch employee.employeeType {
-    //
-    //        case .management:
-    //            guard let manager = employee as? ManagerRepresentable else { return }
-    //            managers.append(manager)
-    //
-    //        case .accountant:
-    //            guard let accountant = employee as? AccountantRepresentable else { return }
-    //            accountants.append(accountant)
-    //
-    //        case .basicWorker:
-    //            guard let basicWorker = employee as? BasicWorkerRepresentable else { return }
-    //            basicWorkers.append(basicWorker)
-    //        }
-    //
-    //        employees = [managers, basicWorkers, accountants]
-    //    }
+    func updateEmployeeList(with employee: EmployeeRepresentable) {
+        switch employee.employeeType {
+
+        case .manager:
+            guard let manager = employee as? ManagerRepresentable else { return }
+            managers.append(manager)
+
+            managedObjectContext?.performChanges {
+                guard let managedObjectContext = self.managedObjectContext else { return }
+                _ = Manager.insert(into: managedObjectContext, employee: manager)
+            }
+
+        case .accountant:
+            guard let accountant = employee as? AccountantRepresentable else { return }
+            accountants.append(accountant)
+
+            managedObjectContext?.performChanges {
+                guard let managedObjectContext = self.managedObjectContext else { return }
+                _ = Accountant.insert(into: managedObjectContext, employee: accountant)
+            }
+
+        case .basicWorker:
+            guard let basicWorker = employee as? BasicWorkerRepresentable else { return }
+            basicWorkers.append(basicWorker)
+
+            managedObjectContext?.performChanges {
+                guard let managedObjectContext = self.managedObjectContext else { return }
+                _ = BasicWorker.insert(into: managedObjectContext, employee: basicWorker)
+            }
+        }
+
+        employees = [managers, basicWorkers, accountants]
+    }
 }
 
 // MARK: Core Data
 extension EmployeeManager {
 
-     func fetchFromCoreData(completion: @escaping(Result<[[EmployeeRepresentable]], Error>) -> Void) {
+    func fetchFromCoreData(completion: @escaping(Result<[[EmployeeRepresentable]], Error>) -> Void) {
         self.basicWorkers = fetchBasicWorkersFromContainer()
         self.managers = fetchManagersFromContainer()
         self.accountants = fetchAccountantsFromContainer()
@@ -113,7 +127,7 @@ extension EmployeeManager {
                         name: basicWorker.name,
                         salary: basicWorker.salary,
                         breakHours: basicWorker.breakHours,
-                        deskNumber: Int64(basicWorker.deskNumber)
+                        deskNumber: basicWorker.deskNumber
                     )
                 )
             }
@@ -139,7 +153,7 @@ extension EmployeeManager {
                         name: accountant.name,
                         salary: accountant.salary,
                         breakHours: accountant.breakHours,
-                        deskNumber: Int64(accountant.deskNumber),
+                        deskNumber: accountant.deskNumber,
                         accountantType: accountant.accountantType
                     )
                 )

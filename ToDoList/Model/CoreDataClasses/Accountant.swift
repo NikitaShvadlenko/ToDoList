@@ -22,4 +22,14 @@ class Accountant: Employee {
             self.accountantTypeValue = newValue.rawValue
         }
     }
+
+    static func insert(into context: NSManagedObjectContext, employee: AccountantRepresentable) -> Accountant {
+        let accountant: Accountant = context.insertObject()
+        accountant.name = employee.name
+        accountant.salary = employee.salary
+        accountant.breakHours = employee.breakHours
+        accountant.deskNumber = employee.deskNumber
+        accountant.accountantType = employee.accountantType
+        return accountant
+    }
 }

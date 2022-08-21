@@ -29,15 +29,8 @@ extension ListProvider: ListProviderProtocol {
             )
         ]
 
-        let managers = [
-            ManagerConstructor(
-                name: "Розинкова Татьяна Петровна",
-                salary: 400000.00,
-                meetingHours: TimePeriod(
-                    startTime: Date(timeIntervalSince1970: 40),
-                    finishTime: Date(timeIntervalSince1970: 50)
-                )
-            )
+        let managers: [ManagerConstructor] = [
+
         ]
 
         let basicWorkers = [
@@ -53,5 +46,9 @@ extension ListProvider: ListProviderProtocol {
         ]
 
         completion(.success( [managers, basicWorkers, accountants] ))
+    }
+
+    func someEmployee() -> EmployeeRepresentable {
+        ManagerConstructor(name: "VALAD VALALIS", salary: 150_000, meetingHours: TimePeriod(startTime: Date(), finishTime: Date()))
     }
 }

@@ -7,6 +7,7 @@ class ListPresenter {
     weak var viewController: ListScreenControllerInput?
     var tableViewManager: MainScreenTableViewManager?
     var fetchListUseCase: AsyncUseCase<Void, [[EmployeeRepresentable]]>?
+    var addEmployeeUseCase: AsyncUseCase<EmployeeRepresentable, Void>?
 }
 
 extension ListPresenter: ListScreenControllerOutput {
@@ -16,6 +17,7 @@ extension ListPresenter: ListScreenControllerOutput {
 
     func viewDidTapAddEmployeeButton(_ view: ListScreenControllerInput) {
         print("Tapped Employee Button")
+        addEmployee(employee: ListProvider().someEmployee())
     }
 }
 
@@ -33,13 +35,17 @@ extension ListPresenter {
             }
         }
     }
-}
 
-enum AccountantKeys: String {
-    case name
-    case salary
-    case employeeTypeValue
-    case deskNumber
-    case breakHours
-    case accountantTypeValue
+    private func addEmployee(employee: EmployeeRepresentable) {
+        addEmployeeUseCase?.executeAsync(employee) { [weak self] result in
+            switch result {
+            case .success:
+                self?.fetchEmployeeList()
+                print(employee)
+
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
 }

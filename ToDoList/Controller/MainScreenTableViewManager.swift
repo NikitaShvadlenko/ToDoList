@@ -22,13 +22,13 @@ extension MainScreenTableViewManager: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        employees[section].count
+         employees[section].count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         switch employees[indexPath.section][indexPath.row].employeeType {
-        case .management:
+        case .manager:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(ManagerCell.self)", for: indexPath) as? ManagerCell
             else {
                 fatalError("Could not deque cell")
@@ -87,9 +87,9 @@ extension MainScreenTableViewManager: UITableViewDelegate {
         var sectionTitle: String = ""
         var image: UIImage?
 
-        switch employees[section][0].employeeType {
+        switch EmployeeType.allCases[section] {
 
-        case .management:
+        case .manager:
             sectionTitle = SharedResources.L10n.managerSectionName
             image = UIImage(sfSymbol: SharedResources.SFSymbol.managerIcon)
 

@@ -2,7 +2,7 @@ import Foundation
 
 public protocol AccountantRepresentable: EmployeeRepresentable {
     var breakHours: TimePeriod { get }
-    var deskNumber: Int64 { get }
+    var deskNumber: Int { get }
     var accountantTypeValue: Int32 { get }
     var name: String { get }
     var salary: Double { get }
@@ -12,7 +12,7 @@ public protocol AccountantRepresentable: EmployeeRepresentable {
 // Class is dependent on EmployeeConstructor - dependency injection is not possible. Revisit this implementation.
 class AccountantConstructor: EmployeeConstructor, AccountantRepresentable {
     let breakHours: TimePeriod
-    let deskNumber: Int64
+    let deskNumber: Int
     var accountantTypeValue: Int32
 
     var accountantType: AccountantType {
@@ -31,7 +31,7 @@ class AccountantConstructor: EmployeeConstructor, AccountantRepresentable {
         name: String,
         salary: Double,
         breakHours: TimePeriod,
-        deskNumber: Int64,
+        deskNumber: Int,
         accountantType: AccountantType
     ) {
         self.breakHours = breakHours
