@@ -21,6 +21,7 @@ class EmployeeManager: NSObject {
 
     override init() {
         super.init()
+
     }
 }
 
@@ -73,7 +74,7 @@ extension EmployeeManager: EmployeeManagerProtocol {
 
             managedObjectContext?.performChanges {
                 guard let managedObjectContext = self.managedObjectContext else { return }
-                _ = Manager.insert(into: managedObjectContext, employee: manager)
+                Manager.insert(into: managedObjectContext, employee: manager)
             }
 
         case .accountant:
@@ -82,7 +83,7 @@ extension EmployeeManager: EmployeeManagerProtocol {
 
             managedObjectContext?.performChanges {
                 guard let managedObjectContext = self.managedObjectContext else { return }
-                _ = Accountant.insert(into: managedObjectContext, employee: accountant)
+                Accountant.insert(into: managedObjectContext, employee: accountant)
             }
 
         case .basicWorker:
@@ -116,10 +117,9 @@ extension EmployeeManager {
         let request = BasicWorker.sortedFetchRequest
         request.fetchBatchSize = 20
         request.returnsObjectsAsFaults = false
-        let fetchResultController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
 
         do {
-            let result = try fetchResultController.fetchRequest.execute()
+            let result = try context.fetch(request)
             var convertedBasicWorkers: [BasicWorkerRepresentable] = []
             for basicWorker in result {
                 convertedBasicWorkers.append(
@@ -142,10 +142,9 @@ extension EmployeeManager {
         let request = Accountant.sortedFetchRequest
         request.fetchBatchSize = 20
         request.returnsObjectsAsFaults = false
-        let fetchResultController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
 
         do {
-            let result = try fetchResultController.fetchRequest.execute()
+            let result = try context.fetch(request)
             var convertedAccountants: [AccountantRepresentable] = []
             for accountant in result {
                 convertedAccountants.append(
@@ -169,10 +168,9 @@ extension EmployeeManager {
         let request = Manager.sortedFetchRequest
         request.fetchBatchSize = 20
         request.returnsObjectsAsFaults = false
-        let fetchResultController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
 
         do {
-            let result = try fetchResultController.fetchRequest.execute()
+            let result = try context.fetch(request)
             var convertedManagers: [ManagerRepresentable] = []
             for manager in result {
                 convertedManagers.append(
@@ -185,6 +183,7 @@ extension EmployeeManager {
             }
             return convertedManagers
         } catch {
+            print(error)
             return []
         }
     }

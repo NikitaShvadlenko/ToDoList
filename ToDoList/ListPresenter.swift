@@ -41,7 +41,7 @@ extension ListPresenter {
             switch result {
             case .success:
                 self?.fetchEmployeeList()
-                print(employee)
+                print(employee.name)
 
             case let .failure(error):
                 print(error)

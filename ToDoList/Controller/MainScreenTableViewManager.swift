@@ -13,6 +13,7 @@ class MainScreenTableViewManager: NSObject {
 extension MainScreenTableViewManager: ListTableViewManagerProtocol {
     func setEmployees(_ employees: [[EmployeeRepresentable]]) {
         self.employees = employees
+        print(employees)
     }
 }
 
