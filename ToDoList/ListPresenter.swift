@@ -8,16 +8,21 @@ class ListPresenter {
     var tableViewManager: MainScreenTableViewManager?
     var fetchListUseCase: AsyncUseCase<Void, [[EmployeeRepresentable]]>?
     var addEmployeeUseCase: AsyncUseCase<EmployeeRepresentable, Void>?
+    var removeEmployeeUseCase: AsyncUseCase<IndexPath, [[EmployeeRepresentable]]>?
 }
 
 extension ListPresenter: ListScreenControllerOutput {
+
     func viewDidLoad(_ view: ListScreenControllerInput) {
         fetchEmployeeList()
     }
 
     func viewDidTapAddEmployeeButton(_ view: ListScreenControllerInput) {
-        print("Tapped Employee Button")
         addEmployee(employee: ListProvider().someEmployee())
+    }
+
+    func viewDidTapDeleteEmployeeButton(_ view: ListTableViewManagerProtocol, at indexPath: IndexPath) {
+        removeEmployee(indexPath: indexPath)
     }
 }
 
@@ -42,6 +47,19 @@ extension ListPresenter {
             case .success:
                 self?.fetchEmployeeList()
                 print(employee.name)
+
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
+
+    private func removeEmployee(indexPath: IndexPath) {
+        removeEmployeeUseCase?.executeAsync(indexPath) { [weak self] result in
+            switch result {
+            case let .success(employees):
+                self?.tableViewManager?.setEmployees(employees)
+                self?.viewController?.reloadList()
 
             case let .failure(error):
                 print(error)

@@ -2,7 +2,7 @@ import CoreData
 
 protocol EmployeeManagerProtocol {
     func addEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void)
-    func removeEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void)
+    func removeEmployee(at indexPath: IndexPath, completion: @escaping (Result<[[EmployeeRepresentable]], Error>) -> Void)
     //  func updateEmployeeList(with employee: EmployeeRepresentable)
     func fetchEmployeeList(from listProvider: ListProviderProtocol, completion: @escaping(Result<[[EmployeeRepresentable]], Error>) -> Void)
     func fetchFromCoreData(completion: @escaping(Result<[[EmployeeRepresentable]], Error>) -> Void)
@@ -47,7 +47,12 @@ extension EmployeeManager: EmployeeManagerProtocol {
         completion(.success(Void()))
     }
 
-    func removeEmployee(employee: EmployeeRepresentable, completion: @escaping (Result<Void, Error>) -> Void) {
+    func removeEmployee(at indexPath: IndexPath, completion: @escaping (Result<[[EmployeeRepresentable]], Error>) -> Void) {
+        let employee = employees[indexPath.section][indexPath.row]
+        managedObjectContext?.performChanges {
+
+        }
+
         switch employee.employeeType {
 
         case .manager:
@@ -62,7 +67,7 @@ extension EmployeeManager: EmployeeManagerProtocol {
 
         employees = [managers, accountants, basicWorkers]
 
-        completion(.success(Void()))
+        completion(.success(employees))
     }
 
     func updateEmployeeList(with employee: EmployeeRepresentable) {

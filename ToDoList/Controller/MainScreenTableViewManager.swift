@@ -1,12 +1,17 @@
 import UIKit
 import SharedResources
 
+protocol DeleteEmployeeDelegate: AnyObject {
+    func deleteEmployee(_ employeeManager: ListTableViewManagerProtocol, indexPath: IndexPath)
+}
+
 protocol ListTableViewManagerProtocol {
     func setEmployees(_ employees: [[EmployeeRepresentable]])
 }
 
 class MainScreenTableViewManager: NSObject {
     private var employees = [[EmployeeRepresentable]]()
+    weak var delegate: DeleteEmployeeDelegate?
 }
 
 // MARK: - ListTableViewManagerProtocol
@@ -23,7 +28,7 @@ extension MainScreenTableViewManager: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         employees[section].count
+        employees[section].count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -77,6 +82,18 @@ extension MainScreenTableViewManager: UITableViewDataSource {
                 breakHours: employee.breakHours.formatTimePeriodAsString()
             )
             return cell
+        }
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .delete:
+            delegate?.deleteEmployee(self, indexPath: indexPath)
+            employees[indexPath.section].remove(at: indexPath.row)
+            tableView.reloadData()
+
+        default:
+            print("Action Not Implemented")
         }
     }
 }

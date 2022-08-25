@@ -16,6 +16,7 @@ public enum ListScreenBuilder {
 
         let listTableViewManager = MainScreenTableViewManager()
 
+        listTableViewManager.delegate = viewController
         viewController.setListDataSource(dataSource: listTableViewManager)
         viewController.setListDelegate(delegate: listTableViewManager)
         viewController.setListDragDelegate(dragDelegate: listTableViewManager)
