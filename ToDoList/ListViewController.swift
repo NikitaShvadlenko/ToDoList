@@ -59,9 +59,3 @@ extension ListViewController: ListScreenControllerInput {
         mainScreenView.reloadTableView()
     }
 }
-
-extension ListViewController: DeleteEmployeeDelegate {
-    func deleteEmployee(_ employeeManager: ListTableViewManagerProtocol, indexPath: IndexPath) {
-        presenter?.viewDidTapDeleteEmployeeButton(employeeManager, at: indexPath)
-    }
-}

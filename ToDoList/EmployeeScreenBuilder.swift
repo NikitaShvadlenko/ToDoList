@@ -7,26 +7,13 @@ public enum ListScreenBuilder {
 
         let viewController = ListViewController()
         let presenter = ListPresenter()
-        // let listProvider = ListProvider()
-        let employeeManager = EmployeeManager()
-        let managedObjectContext = container.viewContext
-        let addEmployeeUseCase = AddEmployeeUseCase(employeeManager: employeeManager)
-        let fetchListUseCase = FetchListFromCoreDataUseCase(employeeManager: employeeManager)
-      // let fetchListUseCase = FetchListUseCase(listProvider: listProvider, employeeManager: employeeManager)
-
         let listTableViewManager = MainScreenTableViewManager()
 
-        listTableViewManager.delegate = viewController
         viewController.setListDataSource(dataSource: listTableViewManager)
         viewController.setListDelegate(delegate: listTableViewManager)
         viewController.setListDragDelegate(dragDelegate: listTableViewManager)
 
-        presenter.tableViewManager = listTableViewManager
-        presenter.fetchListUseCase = fetchListUseCase
-        presenter.addEmployeeUseCase = addEmployeeUseCase
-
-        employeeManager.persistentContainer = container
-        employeeManager.managedObjectContext = managedObjectContext
+        presenter.managedObjectContext = container.viewContext
 
         presenter.viewController = viewController
         viewController.presenter = presenter
